@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.DTOs;
 using server.Entity;
+using server.Services;
+
 
 namespace server.Controllers
 {
@@ -14,6 +16,13 @@ namespace server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private readonly UserService _userService;
+
+        public UserController(UserService userService)
+        {
+            this._userService = userService;
+        }
+
         [HttpGet]
         public async Task<ActionResult<GetUserResponse>> Get()
         {
@@ -29,14 +38,15 @@ namespace server.Controllers
             };
             return Ok(getUserResponse);
         }
-        
+
         [HttpPost]
         public async Task<ActionResult<KeyValueErrorResponse>> Create()
         {
-            KeyValueErrorResponse keyValueErrorResponse = new KeyValueErrorResponse { error = "Bad Request", email = false };
+            KeyValueErrorResponse keyValueErrorResponse =
+                new KeyValueErrorResponse { error = "Bad Request", email = false };
             return BadRequest(keyValueErrorResponse);
         }
-        
+
         [HttpPut]
         public async Task<ActionResult<KeyValueErrorResponse>> Update()
         {
