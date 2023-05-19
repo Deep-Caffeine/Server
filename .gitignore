@@ -261,4 +261,4 @@ pub/
 #Custum
 .env
 .swp
-/Migrations
+server/Migrations/
