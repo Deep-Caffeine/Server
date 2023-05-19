@@ -43,6 +43,12 @@ namespace server.Controllers
             KeyValueErrorResponse keyValueErrorResponse = new KeyValueErrorResponse { error = "Bad Request", email = false };
             return BadRequest(keyValueErrorResponse);
         }
+        
+        [HttpPut]
+        public async Task<ActionResult<KeyValueErrorResponse>> Update()
+        {
+            return Ok();
+        }
 
         private bool UserEntityExists(long id)
         {
