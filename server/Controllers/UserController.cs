@@ -36,6 +36,13 @@ namespace server.Controllers
             };
             return Ok(getUserResponse);
         }
+        
+        [HttpPost]
+        public async Task<IActionResult> Create()
+        {
+            CreateResponse createResponse = new CreateResponse { error = "Bad Request", email = false };
+            return BadRequest(createResponse);
+        }
 
         private bool UserEntityExists(long id)
         {
