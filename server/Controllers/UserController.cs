@@ -14,13 +14,6 @@ namespace server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-
-        public UserController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
         [HttpGet]
         public async Task<ActionResult<GetUserResponse>> Get()
         {
@@ -54,11 +47,6 @@ namespace server.Controllers
         public async Task<ActionResult> Delete()
         {
             return Unauthorized();
-        }
-
-        private bool UserEntityExists(long id)
-        {
-            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
