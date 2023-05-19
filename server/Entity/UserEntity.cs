@@ -13,7 +13,7 @@ namespace server.Entites
 
         public string Birth { get; set; }
 
-        public string Profile_url { get; set; }
+        public string ProfileURL { get; set; }
 
         public long Level { get; set; }
 
@@ -26,7 +26,7 @@ namespace server.Entites
             Username = "";
             Phone = "";
             Birth = "";
-            Profile_url = "";
+            ProfileURL = "";
             Level = 0;
             Sns = "";
         }
