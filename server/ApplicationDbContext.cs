@@ -17,7 +17,6 @@ namespace server.Data
             var path = Environment.GetFolderPath(folder);
 
             DbPath = System.IO.Path.Join(path, "./data.db");
-            Console.WriteLine(DbPath);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
