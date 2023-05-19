@@ -1,9 +1,7 @@
-﻿using System;
-using server.Entites;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using server.Entity;
 
-namespace server.Data
+namespace server
 {
     public class ApplicationDbContext : DbContext
     {
