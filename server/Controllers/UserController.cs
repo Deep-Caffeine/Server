@@ -38,12 +38,12 @@ namespace server.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> Create()
+        public async Task<ActionResult<CreateResponse>> Create()
         {
             CreateResponse createResponse = new CreateResponse { error = "Bad Request", email = false };
             return BadRequest(createResponse);
         }
-
+        
         private bool UserEntityExists(long id)
         {
             return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
