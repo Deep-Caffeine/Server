@@ -38,12 +38,12 @@ namespace server.Controllers
         }
         
         [HttpPost]
-        public async Task<ActionResult<CreateResponse>> Create()
+        public async Task<ActionResult<KeyValueErrorResponse>> Create()
         {
-            CreateResponse createResponse = new CreateResponse { error = "Bad Request", email = false };
-            return BadRequest(createResponse);
+            KeyValueErrorResponse keyValueErrorResponse = new KeyValueErrorResponse { error = "Bad Request", email = false };
+            return BadRequest(keyValueErrorResponse);
         }
-        
+
         private bool UserEntityExists(long id)
         {
             return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
