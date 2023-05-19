@@ -50,6 +50,12 @@ namespace server.Controllers
             return Ok();
         }
 
+        [HttpDelete]
+        public async Task<ActionResult> Delete()
+        {
+            return Unauthorized();
+        }
+
         private bool UserEntityExists(long id)
         {
             return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
