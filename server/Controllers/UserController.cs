@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using server.Data;
-using server.Data.DTOs;
+using server.DTOs;
 using server.Entity;
 
 namespace server.Controllers
@@ -37,7 +36,7 @@ namespace server.Controllers
             };
             return Ok(getUserResponse);
         }
-        
+
         private bool UserEntityExists(long id)
         {
             return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();

@@ -1,4 +1,4 @@
-﻿namespace server.Data.DTOs;
+﻿namespace server.DTOs;
 
 public class GetUserResponse
 {
