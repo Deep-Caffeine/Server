@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using server.Entity;
+using server.Entities;
 
 namespace server
 {

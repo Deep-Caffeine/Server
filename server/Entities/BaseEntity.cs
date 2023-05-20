@@ -1,5 +1,5 @@
 ﻿using System;
-namespace server.Entity
+namespace server.Entities
 {
     public class BaseEntity
     {
