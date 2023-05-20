@@ -5,15 +5,15 @@ namespace server.Services;
 
 public class UserService : IUserService
 {
-    private readonly ApplicationDbContext _context;
+    private readonly ApplicationDbContext mContext;
 
     public UserService(ApplicationDbContext context)
     {
-        _context = context;
+        mContext = context;
     }
     private bool UserEntityExists(long id)
     {
-        return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+        return (mContext.Users?.Any(e => e.Id == id)).GetValueOrDefault();
     }
     
     public GetUserResponse Create()

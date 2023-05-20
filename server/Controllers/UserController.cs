@@ -16,11 +16,11 @@ namespace server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly UserService _userService;
+        private readonly UserService mUserService;
 
         public UserController(UserService userService)
         {
-            this._userService = userService;
+            this.mUserService = userService;
         }
 
         [HttpGet]
