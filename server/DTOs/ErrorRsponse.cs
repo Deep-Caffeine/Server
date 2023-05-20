@@ -1,6 +1,6 @@
 ﻿namespace server.DTOs;
 
-public abstract class ErrorRsponse
+public abstract class ErrorResponse
 {
     public string error { get; set; }
 }
