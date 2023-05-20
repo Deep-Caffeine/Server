@@ -3,7 +3,7 @@ using server.Entites;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace server.Data
+namespace server
 {
     public class ApplicationDbContext : DbContext
     {
