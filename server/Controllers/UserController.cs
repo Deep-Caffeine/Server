@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.DTOs;
 using server.Entity;
+using server.Services;
 
 
 namespace server.Controllers
@@ -15,11 +16,11 @@ namespace server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly UserService mUserService;
 
-        public UserController(ApplicationDbContext context)
+        public UserController(UserService userService)
         {
-            _context = context;
+            this.mUserService = userService;
         }
 
         [HttpGet]
@@ -55,11 +56,6 @@ namespace server.Controllers
         public ActionResult Delete()
         {
             return Unauthorized();
-        }
-
-        private bool UserEntityExists(long id)
-        {
-            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

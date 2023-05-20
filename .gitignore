@@ -256,12 +256,9 @@ pub/
 /src/Services/Identity/eShopOnContainers.Identity/Properties/launchSettings.json
 
 #Ignore marker-file used to know which docker files we have.
-
 # Docker
 data
 logs
-.eshopdocker_
-.eshopdocker_*
 
 #Custum
 .env

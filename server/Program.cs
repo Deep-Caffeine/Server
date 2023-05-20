@@ -1,4 +1,5 @@
 ﻿using server;
+using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ builder.Services.AddControllers();
 
 // Dependency injection (services)
 builder.Services.AddDbContext<ApplicationDbContext>();
+builder.Services.AddScoped<UserService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
