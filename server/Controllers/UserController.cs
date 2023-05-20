@@ -24,7 +24,7 @@ namespace server.Controllers
         }
 
         [HttpGet]
-                public ActionResult<GetUserResponse> Get()
+        public ActionResult<GetUserResponse> Get()
         {
             GetUserResponse getUserResponse = new GetUserResponse
             {
