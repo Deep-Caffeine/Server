@@ -24,7 +24,7 @@ namespace server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<GetUserResponse>> Get()
+                public ActionResult<GetUserResponse> Get()
         {
             GetUserResponse getUserResponse = new GetUserResponse
             {
@@ -38,23 +38,22 @@ namespace server.Controllers
             };
             return Ok(getUserResponse);
         }
-
+        
         [HttpPost]
-        public async Task<ActionResult<KeyValueErrorResponse>> Create()
+        public ActionResult<KeyValueErrorResponse> Create()
         {
-            KeyValueErrorResponse keyValueErrorResponse =
-                new KeyValueErrorResponse { error = "Bad Request", email = false };
+            KeyValueErrorResponse keyValueErrorResponse = new KeyValueErrorResponse { error = "Bad Request", email = false };
             return BadRequest(keyValueErrorResponse);
         }
-
+        
         [HttpPut]
-        public async Task<ActionResult<KeyValueErrorResponse>> Update()
+        public ActionResult<KeyValueErrorResponse> Update()
         {
             return Ok();
         }
 
         [HttpDelete]
-        public async Task<ActionResult> Delete()
+        public ActionResult Delete()
         {
             return Unauthorized();
         }
