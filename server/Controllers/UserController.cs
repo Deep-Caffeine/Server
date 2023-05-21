@@ -42,6 +42,11 @@ namespace server.Controllers
         [HttpPost]
         public ActionResult<KeyValueErrorResponse> Create([FromBody] UserEntity model)
         {
+            if (String.IsNullOrEmpty(model.ProfileURL))
+            {
+                model.ProfileURL = "/default/profileURL";
+            }
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
