@@ -9,6 +9,13 @@ builder.Services.AddControllers();
 // Dependency injection (services)
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "develop", policy =>
+    {
+        policy.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+    });
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -30,4 +37,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
