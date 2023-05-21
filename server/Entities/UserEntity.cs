@@ -16,6 +16,8 @@ namespace server.Entities
         [StringLength(20, MinimumLength = 3, ErrorMessage = "사용자 이름의 최소 길이는 3자리 입니다.")]
         public string Username { get; set; }
         
+        [Required(ErrorMessage = "휴대폰 번호를 입력하지 않았습니다.")]
+        [Phone(ErrorMessage = "휴대폰 번호 형식이 올바르지 않습니다.")]
         public string Phone { get; set; }
         
         public string Birth { get; set; }
