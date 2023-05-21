@@ -46,10 +46,7 @@ namespace server.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             return Ok();
-            // KeyValueErrorResponse keyValueErrorResponse = new KeyValueErrorResponse { error = "Bad Request", email = false };
-            // return BadRequest(keyValueErrorResponse);
         }
         
         [HttpPut]
