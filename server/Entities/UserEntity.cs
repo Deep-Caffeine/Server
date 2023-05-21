@@ -8,6 +8,8 @@ namespace server.Entities
         [EmailAddress(ErrorMessage = "이메일 형식이 올바르지 않습니다.")]
         public string Email { get; set; }
         
+        [Required(ErrorMessage = "비밀번호를 입력하지 않았습니다.")]
+        [RegularExpression(@"^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()-=_+,.!?])(?!.*\s).{8,}$", ErrorMessage = "비밀번호는 8자 이상이어야 하며, 특수문자, 숫자, 알파벳이 반드시 포함되어야 합니다.")]
         public string Password { get; set; }
         
         public string Username { get; set; }
