@@ -24,8 +24,7 @@ namespace server.Entities
         [RegularExpression(@"^\d{4}-\d{2}-\d{2}$", ErrorMessage = "생년월일의 형식이 올바르지 않습니다.")]
         public string Birth { get; set; }
         
-        [RegularExpression(@"^\/\w+\/\w+$",ErrorMessage = "URL 형식이 올바르지 않습니다.")]
-        public string ProfileURL { get; set; }
+        public string? ProfileURL { get; set; }
 
         public long Level { get; set; }
 
@@ -38,7 +37,7 @@ namespace server.Entities
             Username = "";
             Phone = "";
             Birth = "";
-            ProfileURL = "";
+            ProfileURL = null;
             Level = 0;
             Sns = "";
         }
