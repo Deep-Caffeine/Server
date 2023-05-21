@@ -1,4 +1,4 @@
-﻿namespace server.Entity
+﻿namespace server.Entities
 {
     public class UserEntity : BaseEntity
     {
