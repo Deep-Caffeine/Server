@@ -24,8 +24,7 @@ namespace server.Entities
         [RegularExpression(@"^\d{4}-\d{2}-\d{2}$", ErrorMessage = "생년월일의 형식이 올바르지 않습니다.")]
         public string Birth { get; set; }
         
-        [Required(ErrorMessage = "프로필 이미지를 선택하지 않았습니다.")]
-        [Url(ErrorMessage = "URL 형식이 올바르지 않습니다.")]
+        [RegularExpression(@"^\/\w+\/\w+$",ErrorMessage = "URL 형식이 올바르지 않습니다.")]
         public string ProfileURL { get; set; }
 
         public long Level { get; set; }
