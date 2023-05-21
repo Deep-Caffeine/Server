@@ -40,10 +40,16 @@ namespace server.Controllers
         }
         
         [HttpPost]
-        public ActionResult<KeyValueErrorResponse> Create()
+        public ActionResult<KeyValueErrorResponse> Create([FromBody] UserEntity model)
         {
-            KeyValueErrorResponse keyValueErrorResponse = new KeyValueErrorResponse { error = "Bad Request", email = false };
-            return BadRequest(keyValueErrorResponse);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return Ok();
+            // KeyValueErrorResponse keyValueErrorResponse = new KeyValueErrorResponse { error = "Bad Request", email = false };
+            // return BadRequest(keyValueErrorResponse);
         }
         
         [HttpPut]
