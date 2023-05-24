@@ -25,9 +25,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+
+app.Use((context, next) =>
+{
+    context.Response.Headers["Access-Control-Allow-Origin"] = "*";  
+    context.Response.Headers["Access-Control-Allow-Header"] = "*";
+    context.Response.Headers["Access-Control-Allow-Method"] = "*";
+    return next.Invoke();
+});
+
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
-
