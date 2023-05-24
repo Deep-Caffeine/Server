@@ -9,13 +9,6 @@ builder.Services.AddControllers();
 // Dependency injection (services)
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<UserService>();
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "develop", policy =>
-    {
-        policy.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
-    });
-});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -31,6 +24,16 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.Use((context, next) =>
+{
+    context.Response.Headers["Access-Control-Allow-Origin"] = "*";  
+    context.Response.Headers["Access-Control-Allow-Header"] = "*";
+    context.Response.Headers["Access-Control-Allow-Method"] = "*";
+    return next.Invoke();
+});
 
 app.UseAuthorization();
 
