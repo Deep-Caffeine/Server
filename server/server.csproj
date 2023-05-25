@@ -31,6 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Entity\" />
+    <Folder Include="Entities\" />
   </ItemGroup>
 </Project>
