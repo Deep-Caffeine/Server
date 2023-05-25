@@ -26,7 +26,7 @@ jobs:
       - name: Dotnet Format
         run: |
           dotnet tool install -g dotnet-format
-          dotnet-format ${WORKSPACE} --report dotnet-format-report.json
+          dotnet-format ${WORKSPACE}/${WORKSPACE}.sln --report dotnet-format-report.json
       - name: Check Report
         run: |
           cat ${WORKSPACE}/dotnet-format-report.json
