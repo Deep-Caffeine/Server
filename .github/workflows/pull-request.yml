@@ -1,0 +1,67 @@
+name: Pull Request
+
+run-name: Pull Request (${{ github.event.number }})
+
+on:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      WORKSPACE: ${{ vars.WORKSPACE }}
+    steps:
+      - name: Branch name
+        run: |
+          echo Branch ${{ github.event.pull_request.head.ref }}
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+      - name: Dotnet Format
+        run: |
+          dotnet tool install -g dotnet-format
+          dotnet-format ${WORKSPACE} --report dotnet-format-report.json
+      - name: Check Report
+        run: |
+          cat ${WORKSPACE}/dotnet-format-report.json
+          rm ${WORKSPACE}/dotnet-format-report.json
+      - name: Git commit & push
+        run: |
+          git config --local user.email "yejun614@naver.com"
+          git config --local user.name "Dotnet Format Bot (by YeJun, Jung)"
+          echo --------------------- STATUS ---------------------
+          git status
+          echo ---------------------  DIFF  ---------------------
+          git diff
+          echo ---------------------  ADD   ---------------------
+          git add ${WORKSPACE}
+          echo --------------------- COMMIT ---------------------
+          git commit -m "[Style] Auto dotnet format"
+          echo --------------------- BRANCH ---------------------
+          git branch
+          echo ---------------------  LOG   ---------------------
+          git log
+          echo ---------------------  PUSH  ---------------------
+          git push origin ${{ github.event.pull_request.head.ref }}
+
+  migrations_test:
+    runs-on: ubuntu-latest
+    env:
+      WORKSPACE: ${{ vars.WORKSPACE }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+      - name: Dotnet EntityFramework Migration
+        run: |
+          cd ${WORKSPACE}
+          dotnet tool install --global dotnet-ef
+          dotnet ef migrations add "${{ github.event.head_commit.message }} ($(git rev-parse --short "$GITHUB_SHA"))" -o "Data/Migrations"
+          dotnet ef database update
