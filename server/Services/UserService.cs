@@ -24,9 +24,17 @@ public class UserService : IUserService
     public GetUserResponse Read(long id)
     {
         var user = mContext.Users.Find(id);
-
-        var response = new GetUserResponse();
-        
+    
+        var response = new GetUserResponse
+        {
+            email = user.Email,
+            username = user.Username,
+            phone = user.Phone,
+            birth = user.Birth,
+            profile_url = user.ProfileURL,
+            level = user.Level,
+            sns = user.Sns.Split(',')
+        };
         return new GetUserResponse();
     }
 }
