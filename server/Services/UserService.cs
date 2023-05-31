@@ -20,7 +20,7 @@ public class UserService : IUserService
     {
         return new GetUserResponse();
     }
-    
+
     public GetUserResponse Read()
     {
         long time = DateTime.Now.Ticks / 10;
@@ -29,7 +29,7 @@ public class UserService : IUserService
         {
             return null;
         }
-        
+
         var response = new GetUserResponse
         {
             email = "deepcaffeine@deu.ac.kr",
@@ -38,7 +38,7 @@ public class UserService : IUserService
             birth = "1998-02-08",
             profile_url = "/images/profile001.png",
             level = 1,
-            sns = new string[] {"kakao", "naver"}
+            sns = new string[] { "kakao", "naver" }
         };
         return response;
     }
