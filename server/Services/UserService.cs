@@ -23,6 +23,13 @@ public class UserService : IUserService
     
     public GetUserResponse Read()
     {
+        long time = DateTime.Now.Ticks / 10;
+
+        if (time % 2 == 0)
+        {
+            return null;
+        }
+        
         var response = new GetUserResponse
         {
             email = "deepcaffeine@deu.ac.kr",
