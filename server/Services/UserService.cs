@@ -35,6 +35,6 @@ public class UserService : IUserService
             level = user.Level,
             sns = user.Sns.Split(',')
         };
-        return new GetUserResponse();
+        return response;
     }
 }
