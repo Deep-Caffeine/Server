@@ -20,5 +20,13 @@ public class UserService : IUserService
     {
         return new GetUserResponse();
     }
+    
+    public GetUserResponse Read(long id)
+    {
+        var user = mContext.Users.Find(id);
 
+        var response = new GetUserResponse();
+        
+        return new GetUserResponse();
+    }
 }
