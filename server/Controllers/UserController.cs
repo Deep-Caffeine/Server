@@ -26,17 +26,14 @@ namespace server.Controllers
         [HttpGet]
         public ActionResult<GetUserResponse> Get()
         {
-            GetUserResponse getUserResponse = new GetUserResponse
+            var userResponse = mUserService.Read();
+
+            if (userResponse == null)
             {
-                email = "von0401@deu.ac.kr",
-                username = "Eun Jung Von",
-                phone = "010-1234-5678",
-                birth = "2014-04-01",
-                profile_url = "/image/trolls",
-                level = 418,
-                sns = new string[3] { "kakao", "naver", "google" }
-            };
-            return Ok(getUserResponse);
+                return Unauthorized();
+            }
+
+            return Ok(userResponse);
         }
 
         [HttpPost]
