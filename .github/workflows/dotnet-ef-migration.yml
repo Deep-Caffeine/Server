@@ -1,0 +1,48 @@
+name: Dotnet EF Migration
+
+run-name: Run Dotnet EntityFramework Migrations
+
+on:
+  workflow_dispatch:
+
+jobs:
+  migrations:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      WORKSPACE: ${{ vars.WORKSPACE }}
+    steps:
+      - name: Branch name
+        run: |
+          echo Branch ${{ github.ref_name }}
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+      - name: Dotnet EntityFramework Migration
+        run: |
+          cd ${WORKSPACE}
+          dotnet tool install --global dotnet-ef
+          dotnet ef migrations add "${{ github.event.head_commit.message }} ($(git rev-parse --short "$GITHUB_SHA"))" -o "Data/Migrations"
+          dotnet ef database update
+      - name: Git commit & push
+        run: |
+          git config --local user.email "yejun614@naver.com"
+          git config --local user.name "Dotnet Migration Bot (by YeJun, Jung)"
+          echo --------------------- STATUS ---------------------
+          git status
+          echo ---------------------  DIFF  ---------------------
+          git diff
+          echo ---------------------  ADD   ---------------------
+          git add .
+          echo --------------------- COMMIT ---------------------
+          git commit -m "[Chore] Auto EntityFramework Migrations"
+          echo --------------------- BRANCH ---------------------
+          git branch
+          echo ---------------------  LOG   ---------------------
+          git log
+          echo ---------------------  PUSH  ---------------------
+          git push origin ${{ github.ref_name }}

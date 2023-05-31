@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,7 +38,7 @@ namespace server.Controllers
             };
             return Ok(getUserResponse);
         }
-        
+
         [HttpPost]
         public ActionResult<KeyValueErrorResponse> Create([FromBody] UserEntity model)
         {
@@ -48,7 +48,7 @@ namespace server.Controllers
             }
             return Ok();
         }
-        
+
         [HttpPut]
         public ActionResult<KeyValueErrorResponse> Update()
         {
