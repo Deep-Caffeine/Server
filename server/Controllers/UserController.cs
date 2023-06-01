@@ -49,9 +49,9 @@ namespace server.Controllers
         [HttpPut]
         public async Task<ActionResult<KeyValueErrorResponse>> Update([FromHeader(Name = "Id")] long id, [FromBody] PutUserRequest model)
         {
-            var userResponse = await mUserService.Update(id, model);
+            bool userResponse = await mUserService.Update(id, model);
 
-            if (userResponse == null)
+            if (!userResponse)
             {
                 return Unauthorized();
             }

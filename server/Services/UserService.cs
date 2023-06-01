@@ -44,13 +44,13 @@ public class UserService : IUserService
         return response;
     }
 
-    public async Task<PutUserRequest?> Update(long id, PutUserRequest model)
+    public async Task<bool> Update(long id, PutUserRequest model)
     {
         UserEntity? user = await this.mContext.Users.FindAsync(id);
 
         if (user == null)
         {
-            return null;
+            return false;
         }
 
         user.Username = model.username ?? user.Username;
@@ -60,6 +60,6 @@ public class UserService : IUserService
 
         await mContext.SaveChangesAsync();
 
-        return model;
+        return true;
     }
 }
