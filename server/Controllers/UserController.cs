@@ -25,19 +25,16 @@ namespace server.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult<GetUserResponse> Get()
+        public async Task<ActionResult<GetUserResponse>> Read([FromHeader(Name = "Id")] long id)
         {
-            GetUserResponse getUserResponse = new GetUserResponse
+            var userResponse = await mUserService.Read(id);
+
+            if (userResponse == null)
             {
-                email = "von0401@deu.ac.kr",
-                username = "Eun Jung Von",
-                phone = "010-1234-5678",
-                birth = "2014-04-01",
-                profile_url = "/image/trolls",
-                level = 418,
-                sns = new string[3] { "kakao", "naver", "google" }
-            };
-            return Ok(getUserResponse);
+                return Unauthorized();
+            }
+
+            return Ok(userResponse);
         }
 
         [HttpPost]
@@ -52,8 +49,15 @@ namespace server.Controllers
 
         [HttpPut]
         [Authorize]
-        public ActionResult<KeyValueErrorResponse> Update()
+        public async Task<ActionResult<KeyValueErrorResponse>> Update([FromHeader(Name = "Id")] long id, [FromBody] PutUserRequest model)
         {
+            bool userResponse = await mUserService.Update(id, model);
+
+            if (!userResponse)
+            {
+                return Unauthorized();
+            }
+
             return Ok();
         }
 
