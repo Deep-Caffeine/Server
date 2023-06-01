@@ -23,22 +23,22 @@ public class UserService : IUserService
 
     public async Task<GetUserResponse> Read(long id)
     {
-        var user = await mContext.Users.FindAsync(id);
+        var user = await this.mContext.Users.FindAsync(id);
 
         if (user == null)
         {
-            return null;
+            return new GetUserResponse();
         }
         
         var response = new GetUserResponse
         {
-            email = user.Email,
-            username = user.Username,
-            phone = user.Phone,
-            birth = user.Birth,
-            profile_url = user.ProfileURL,
-            level = user.Level,
-            sns = user.Sns.Split(',')
+            Email = user.Email,
+            Username = user.Username,
+            Phone = user.Phone,
+            Birth = user.Birth,
+            Profile_url = user.ProfileURL,
+            Level = user.Level,
+            Sns = user.Sns.Split(',')
         };
         return response;
     }

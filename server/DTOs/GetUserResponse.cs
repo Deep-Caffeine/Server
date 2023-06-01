@@ -2,11 +2,11 @@
 
 public class GetUserResponse
 {
-    public string email { get; set; }
-    public string username { get; set; }
-    public string phone { get; set; }
-    public string birth { get; set; }
-    public string? profile_url { get; set; }
-    public long level { get; set; }
-    public string[] sns { get; set; }
+    public string Email { get; set; }
+    public string Username { get; set; }
+    public string Phone { get; set; }
+    public string Birth { get; set; }
+    public string? Profile_url { get; set; }
+    public long Level { get; set; }
+    public string[] Sns { get; set; }
 }
