@@ -32,8 +32,11 @@ else
     //배포 상태인 경우 MySQL로 연결
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
     {
-        //추후 환경변수로 변경 필요
-        string connectionString = "Server=localhost;Database=deepcaffeine;Uid=root;Pwd=toor;";
+        string connectionString = $"Server={Environment.GetEnvironmentVariable("DB_HOST")};";
+        connectionString += $"Database={Environment.GetEnvironmentVariable("DB_NAME")};";
+        connectionString += $"Uid={Environment.GetEnvironmentVariable("DB_USER")};";
+        connectionString += $"Pwd={Environment.GetEnvironmentVariable("DB_PASSWORD")};";
+        
         options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
     });
 }
