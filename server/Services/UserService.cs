@@ -43,4 +43,9 @@ public class UserService : IUserService
         };
         return response;
     }
+
+    public async Task<PutUserRequest?> Update(long id, PutUserRequest model)
+    {
+        return null;
+    }
 }
