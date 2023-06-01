@@ -35,7 +35,7 @@ else
         connectionString += $"Database={Environment.GetEnvironmentVariable("DB_NAME")};";
         connectionString += $"Uid={Environment.GetEnvironmentVariable("DB_USER")};";
         connectionString += $"Pwd={Environment.GetEnvironmentVariable("DB_PASSWORD")};";
-        
+
         options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
     });
 }
