@@ -47,8 +47,15 @@ namespace server.Controllers
         }
 
         [HttpPut]
-        public ActionResult<KeyValueErrorResponse> Update()
+        public async Task<ActionResult<KeyValueErrorResponse>> Update([FromHeader(Name = "Id")] long id, [FromBody] PutUserRequest model)
         {
+            bool userResponse = await mUserService.Update(id, model);
+
+            if (!userResponse)
+            {
+                return Unauthorized();
+            }
+
             return Ok();
         }
 
