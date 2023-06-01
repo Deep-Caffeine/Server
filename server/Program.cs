@@ -3,6 +3,9 @@ using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthentication();
+builder.Services.AddAuthentication("Bearer").AddJwtBearer();
+
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -15,6 +18,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseAuthentication();
 
 // Configure the HTTP request pipeline.
 bool isSwagger = app.Configuration.GetValue<bool>("swagger");
