@@ -24,7 +24,7 @@ namespace server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<GetUserResponse>> Get([FromHeader(Name = "Id")] long id)
+        public async Task<ActionResult<GetUserResponse>> Read([FromHeader(Name = "Id")] long id)
         {
             var userResponse = await mUserService.Read(id);
 
