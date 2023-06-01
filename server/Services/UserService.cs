@@ -54,7 +54,7 @@ public class UserService : IUserService
         }
 
         user.Username = model.username ?? user.Username;
-        user.Password = model.password ?? user.Password; 
+        user.Password = model.password ?? user.Password;
         user.Phone = model.phone ?? user.Phone;
         user.Birth = model.birth ?? user.Birth;
 
