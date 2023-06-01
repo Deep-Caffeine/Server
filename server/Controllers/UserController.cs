@@ -55,12 +55,12 @@ namespace server.Controllers
             }
 
             var userResponse = await mUserService.Update(id, model);
-            
+
             if (userResponse == null)
             {
                 return Unauthorized();
             }
-            
+
             return Ok();
         }
 
