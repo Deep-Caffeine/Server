@@ -47,8 +47,13 @@ namespace server.Controllers
         }
 
         [HttpPut]
-        public ActionResult<KeyValueErrorResponse> Update()
+        public ActionResult<KeyValueErrorResponse> Update([FromHeader(Name = "Id")] long id, [FromBody] PutUserRequest model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             return Ok();
         }
 
