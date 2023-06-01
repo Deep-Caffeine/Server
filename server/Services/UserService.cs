@@ -1,4 +1,8 @@
-﻿using server.DTOs;
+﻿using System.Data.Entity;
+using System.Security.Cryptography;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
+using server.DTOs;
 using server.Entities;
 using server.Interface;
 
@@ -12,13 +16,38 @@ public class UserService : IUserService
     {
         mContext = context;
     }
+
     private bool UserEntityExists(long id)
     {
         return (mContext.Users?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 
-    public GetUserResponse Create()
+    public async Task<GetUserResponse?> Create(CreateUserRequest body)
     {
+        //이메일 중복 조회
+        List<string> user = await this.mContext.Users
+            .Where(x => x.Email == body.Email)
+            .Select(x => x.Email)
+            .ToListAsync();
+        if (user.Count == 0)
+        {
+            return null;
+        }
+
+        //비밀번호 암호화
+        byte[] buffer = Encoding.Default.GetBytes(body.Password);
+        byte[] hashBuffer;
+        string hashed = "";
+        using (SHA256 sha256 = SHA256.Create())
+        {
+            hashBuffer = sha256.ComputeHash(buffer);
+        }
+
+        foreach (var temp in hashBuffer)
+        {
+            hashed += temp.ToString("X2");
+        }
+        
         return new GetUserResponse();
     }
 
