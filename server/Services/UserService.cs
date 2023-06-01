@@ -46,6 +46,8 @@ public class UserService : IUserService
 
     public async Task<PutUserRequest?> Update(long id, PutUserRequest model)
     {
+        UserEntity? user = await this.mContext.Users.FindAsync(id);
+
         return null;
     }
 }
