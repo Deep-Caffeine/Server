@@ -9,6 +9,7 @@ using server.Attributes;
 using server.DTOs;
 using server.Entities;
 using server.Services;
+using server.Utilities;
 
 namespace server.Controllers;
 
@@ -56,7 +57,12 @@ public class AuthController : ControllerBase
     public ActionResult<AuthResponse> Refresh()
     {
         JwtSecurityToken jwtToken = (JwtSecurityToken)HttpContext.Items["JwtToken"]!;
-        string id = jwtToken.Claims.First(x => x.Type == "id").Value;
+        string? id = jwtToken.GetClaimByType("id");
+
+        if (id == null)
+        {
+            return Unauthorized();
+        }
 
         AuthResponse response = new AuthResponse();
         response.access_token = mAuthService.GenerateAccessToken(long.Parse(id));

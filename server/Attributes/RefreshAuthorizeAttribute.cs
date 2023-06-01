@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using server.Utilities;
 
 namespace server.Attributes;
 
@@ -28,9 +29,9 @@ public class RefreshAuthorizeAttribute : Attribute, IAuthorizationFilter
         }
         else
         {
-            Claim? isRefreshOnly = jwtToken.Claims.FirstOrDefault(x => x.Type == "refresh_only");
+            string isRefreshOnly = jwtToken.GetClaimByType("refresh_only") ?? "false";
 
-            if (!(isRefreshOnly != null && isRefreshOnly.Value == "true"))
+            if (isRefreshOnly != "true")
             {
                 context.Result = new UnauthorizedResult();
             }
