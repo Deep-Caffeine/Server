@@ -27,7 +27,7 @@ public class UserService : IUserService
 
         if (user == null)
         {
-            return new GetUserResponse();
+            return null;
         }
         
         var response = new GetUserResponse
