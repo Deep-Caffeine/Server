@@ -1,7 +1,7 @@
-using server.Middlewares;
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using server;
+using server.Middlewares;
 using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);

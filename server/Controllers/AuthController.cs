@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -37,7 +37,7 @@ public class AuthController : ControllerBase
             // Unauthorized
             return Unauthorized();
         }
-        else if (authRequest.no_token?? false)
+        else if (authRequest.no_token ?? false)
         {
             // No token response
             return response;
