@@ -34,7 +34,7 @@ else
     {
         //추후 환경변수로 변경 필요
         string connectionString = "Server=localhost;Database=deepcaffeine;Uid=root;Pwd=toor;";
-        options.UseSqlServer(connectionString);
+        options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
     });
 }
 
