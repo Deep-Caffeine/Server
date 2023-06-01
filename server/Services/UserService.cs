@@ -1,4 +1,5 @@
 ﻿using server.DTOs;
+using server.Entities;
 using server.Interface;
 
 namespace server.Services;
@@ -21,9 +22,9 @@ public class UserService : IUserService
         return new GetUserResponse();
     }
 
-    public async Task<GetUserResponse> Read(long id)
+    public async Task<GetUserResponse?> Read(long id)
     {
-        var user = await this.mContext.Users.FindAsync(id);
+        UserEntity? user = await this.mContext.Users.FindAsync(id);
 
         if (user == null)
         {
