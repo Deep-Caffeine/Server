@@ -48,6 +48,11 @@ public class UserService : IUserService
     {
         UserEntity? user = await this.mContext.Users.FindAsync(id);
 
+        if (user == null)
+        {
+            return null;
+        }
+        
         return null;
     }
 }
