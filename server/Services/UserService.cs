@@ -15,10 +15,10 @@ public class UserService : IUserService
     {
         return (mContext.Users?.Any(e => e.Id == id)).GetValueOrDefault();
     }
-    
+
     public GetUserResponse Create()
     {
         return new GetUserResponse();
     }
-    
+
 }
