@@ -51,12 +51,14 @@ namespace server.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public ActionResult<KeyValueErrorResponse> Update()
         {
             return Ok();
         }
 
         [HttpDelete]
+        [Authorize]
         public ActionResult Delete()
         {
             return Unauthorized();
