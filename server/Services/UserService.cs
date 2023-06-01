@@ -21,24 +21,24 @@ public class UserService : IUserService
         return new GetUserResponse();
     }
 
-    public GetUserResponse Read()
+    public async Task<GetUserResponse> Read(long id)
     {
-        long time = DateTime.Now.Ticks / 10;
+        var user = await mContext.Users.FindAsync(id);
 
-        if (time % 2 == 0)
+        if (user == null)
         {
             return null;
         }
-
+        
         var response = new GetUserResponse
         {
-            email = "deepcaffeine@deu.ac.kr",
-            username = "폰성준",
-            phone = "010-0000-0000",
-            birth = "1998-02-08",
-            profile_url = "/images/profile001.png",
-            level = 1,
-            sns = new string[] { "kakao", "naver" }
+            email = user.Email,
+            username = user.Username,
+            phone = user.Phone,
+            birth = user.Birth,
+            profile_url = user.ProfileURL,
+            level = user.Level,
+            sns = user.Sns.Split(',')
         };
         return response;
     }

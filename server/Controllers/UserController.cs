@@ -24,9 +24,9 @@ namespace server.Controllers
         }
 
         [HttpGet]
-        public ActionResult<GetUserResponse> Get()
+        public ActionResult<GetUserResponse> Get(long id)
         {
-            var userResponse = mUserService.Read();
+            var userResponse = mUserService.Read(id);
 
             if (userResponse == null)
             {
