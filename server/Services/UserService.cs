@@ -57,24 +57,24 @@ public class UserService : IUserService
         {
             user.Username = model.username;
         }
-        
+
         if (model.password != null)
         {
             user.Password = model.password;
         }
-        
+
         if (model.phone != null)
         {
             user.Phone = model.phone;
         }
-        
+
         if (model.birth != null)
         {
             user.Birth = model.birth;
         }
 
         await mContext.SaveChangesAsync();
-        
+
         return model;
     }
 }

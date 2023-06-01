@@ -50,12 +50,12 @@ namespace server.Controllers
         public async Task<ActionResult<KeyValueErrorResponse>> Update([FromHeader(Name = "Id")] long id, [FromBody] PutUserRequest model)
         {
             var userResponse = await mUserService.Update(id, model);
-            
+
             if (userResponse == null)
             {
                 return Unauthorized();
             }
-            
+
             return Ok();
         }
 
