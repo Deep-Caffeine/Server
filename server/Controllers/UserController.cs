@@ -24,9 +24,9 @@ namespace server.Controllers
         }
 
         [HttpGet]
-        public ActionResult<GetUserResponse> Get(long id)
+        public async Task<ActionResult<GetUserResponse>> Get([FromHeader(Name = "Id")] long id)
         {
-            var userResponse = mUserService.Read(id);
+            var userResponse = await mUserService.Read(id);
 
             if (userResponse == null)
             {
