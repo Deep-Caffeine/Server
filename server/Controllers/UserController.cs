@@ -24,19 +24,16 @@ namespace server.Controllers
         }
 
         [HttpGet]
-        public ActionResult<GetUserResponse> Get()
+        public async Task<ActionResult<GetUserResponse>> Read([FromHeader(Name = "Id")] long id)
         {
-            GetUserResponse getUserResponse = new GetUserResponse
+            var userResponse = await mUserService.Read(id);
+
+            if (userResponse == null)
             {
-                email = "von0401@deu.ac.kr",
-                username = "Eun Jung Von",
-                phone = "010-1234-5678",
-                birth = "2014-04-01",
-                profile_url = "/image/trolls",
-                level = 418,
-                sns = new string[3] { "kakao", "naver", "google" }
-            };
-            return Ok(getUserResponse);
+                return Unauthorized();
+            }
+
+            return Ok(userResponse);
         }
 
         [HttpPost]
