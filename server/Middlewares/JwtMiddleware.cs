@@ -12,7 +12,7 @@ public class JwtMiddleware
         mNext = next;
     }
 
-    public async Task Invoke(HttpContext context, UserService userService, AuthService authService)
+    public async Task Invoke(HttpContext context, AuthService authService)
     {
         string? authorization = context.Request.Headers["Authorization"];
 
