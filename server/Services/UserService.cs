@@ -29,16 +29,16 @@ public class UserService : IUserService
         {
             return null;
         }
-
+        
         var response = new GetUserResponse
         {
-            Email = user.Email,
-            Username = user.Username,
-            Phone = user.Phone,
-            Birth = user.Birth,
-            Profile_url = user.ProfileURL,
-            Level = user.Level,
-            Sns = user.Sns.Split(',')
+            email = user.Email,
+            username = user.Username,
+            phone = user.Phone,
+            birth = user.Birth,
+            profile_url = user.ProfileURL,
+            level = user.Level,
+            sns = user.Sns.Split(',')
         };
         return response;
     }
