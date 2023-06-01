@@ -53,25 +53,10 @@ public class UserService : IUserService
             return null;
         }
 
-        if (model.username != null)
-        {
-            user.Username = model.username;
-        }
-
-        if (model.password != null)
-        {
-            user.Password = model.password;
-        }
-
-        if (model.phone != null)
-        {
-            user.Phone = model.phone;
-        }
-
-        if (model.birth != null)
-        {
-            user.Birth = model.birth;
-        }
+        user.Username = model.username ?? user.Username;
+        user.Password = model.password ?? user.Password; 
+        user.Phone = model.phone ?? user.Phone;
+        user.Birth = model.birth ?? user.Birth;
 
         await mContext.SaveChangesAsync();
 
