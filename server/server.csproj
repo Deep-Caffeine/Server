@@ -26,11 +26,15 @@
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.5" />
   </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Controllers\" />
     <None Remove="Entity\" />
+    <None Remove="Utilities\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Entities\" />
+    <Folder Include="Utilities\" />
   </ItemGroup>
 </Project>
