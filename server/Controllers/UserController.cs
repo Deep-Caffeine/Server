@@ -1,124 +1,61 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using server.Data;
-using server.Entites;
+using server.DTOs;
+using server.Entities;
+using server.Services;
+
 
 namespace server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("user")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly UserService mUserService;
 
-        public UserController(ApplicationDbContext context)
+        public UserController(UserService userService)
         {
-            _context = context;
+            this.mUserService = userService;
         }
 
-        // GET: api/User
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserEntity>>> GetUsers()
+        public async Task<ActionResult<GetUserResponse>> Read([FromHeader(Name = "Id")] long id)
         {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
-            return await _context.Users.ToListAsync();
+            var userResponse = await mUserService.Read(id);
+
+            if (userResponse == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(userResponse);
         }
 
-        // GET: api/User/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<UserEntity>> GetUserEntity(long id)
-        {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
-            var userEntity = await _context.Users.FindAsync(id);
-
-            if (userEntity == null)
-            {
-                return NotFound();
-            }
-
-            return userEntity;
-        }
-
-        // PUT: api/User/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUserEntity(long id, UserEntity userEntity)
-        {
-            if (id != userEntity.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(userEntity).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserEntityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/User
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<UserEntity>> PostUserEntity(UserEntity userEntity)
+        public ActionResult<KeyValueErrorResponse> Create([FromBody] UserEntity model)
         {
-          if (_context.Users == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.Users'  is null.");
-          }
-            _context.Users.Add(userEntity);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUserEntity", new { id = userEntity.Id }, userEntity);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok();
         }
 
-        // DELETE: api/User/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUserEntity(long id)
+        [HttpPut]
+        public ActionResult<KeyValueErrorResponse> Update()
         {
-            if (_context.Users == null)
-            {
-                return NotFound();
-            }
-            var userEntity = await _context.Users.FindAsync(id);
-            if (userEntity == null)
-            {
-                return NotFound();
-            }
-
-            _context.Users.Remove(userEntity);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok();
         }
 
-        private bool UserEntityExists(long id)
+        [HttpDelete]
+        public ActionResult Delete()
         {
-            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+            return Unauthorized();
         }
     }
 }
