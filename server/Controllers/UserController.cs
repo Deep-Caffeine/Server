@@ -37,12 +37,10 @@ namespace server.Controllers
         }
 
         [HttpPost]
-        public ActionResult<KeyValueErrorResponse> Create([FromBody] UserEntity model)
+        public ActionResult<KeyValueErrorResponse> Create([FromBody] CreateUserRequest body)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //여기
+            this.mUserService.Create(body);
             return Ok();
         }
 

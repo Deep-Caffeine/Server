@@ -6,5 +6,6 @@ namespace server.Interface;
 
 interface IUserService
 {
-    GetUserResponse Create();
+    public GetUserResponse Create(CreateUserRequest body);
+
 }
