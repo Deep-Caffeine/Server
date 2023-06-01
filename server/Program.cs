@@ -1,10 +1,8 @@
 ﻿using server;
+using server.Middlewares;
 using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddAuthentication();
-builder.Services.AddAuthentication("Bearer").AddJwtBearer();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -12,14 +10,13 @@ builder.Services.AddControllers();
 // Dependency injection (services)
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<AuthService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-app.UseAuthentication();
 
 // Configure the HTTP request pipeline.
 bool isSwagger = app.Configuration.GetValue<bool>("swagger");
@@ -41,6 +38,8 @@ app.Use((context, next) =>
     context.Response.Headers["Access-Control-Allow-Method"] = "*";
     return next.Invoke();
 });
+
+app.UseMiddleware<JwtMiddleware>();
 
 app.UseAuthorization();
 

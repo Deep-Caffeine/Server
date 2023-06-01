@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using server.Attributes;
 using server.DTOs;
 using server.Entities;
 using server.Services;
-
 
 namespace server.Controllers
 {
@@ -24,6 +24,7 @@ namespace server.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult<GetUserResponse> Get()
         {
             GetUserResponse getUserResponse = new GetUserResponse
