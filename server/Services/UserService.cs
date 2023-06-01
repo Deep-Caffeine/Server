@@ -29,7 +29,7 @@ public class UserService : IUserService
         {
             return null;
         }
-        
+
         var response = new GetUserResponse
         {
             email = user.Email,
