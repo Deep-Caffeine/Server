@@ -37,10 +37,14 @@ namespace server.Controllers
         }
 
         [HttpPost]
-        public ActionResult<KeyValueErrorResponse> Create([FromBody] CreateUserRequest body)
+        public async Task<ActionResult<KeyValueErrorResponse>> Create([FromBody] CreateUserRequest body)
         {
             //여기
-            this.mUserService.Create(body);
+            bool result = await this.mUserService.Create(body);
+            if (result == false)
+            {
+                return BadRequest();
+            }
             return Ok();
         }
 

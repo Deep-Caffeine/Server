@@ -6,6 +6,6 @@ namespace server.Interface;
 
 interface IUserService
 {
-    public Task<GetUserResponse?> Create(CreateUserRequest body);
+    public Task<bool> Create(CreateUserRequest body);
 
 }
