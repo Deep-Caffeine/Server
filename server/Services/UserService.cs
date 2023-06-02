@@ -86,4 +86,23 @@ public class UserService : IUserService
         };
         return response;
     }
+
+    public async Task<bool> Update(long id, PutUserRequest model)
+    {
+        UserEntity? user = await this.mContext.Users.FindAsync(id);
+
+        if (user == null)
+        {
+            return false;
+        }
+
+        user.Username = model.username ?? user.Username;
+        user.Password = model.password ?? user.Password;
+        user.Phone = model.phone ?? user.Phone;
+        user.Birth = model.birth ?? user.Birth;
+
+        await mContext.SaveChangesAsync();
+
+        return true;
+    }
 }
