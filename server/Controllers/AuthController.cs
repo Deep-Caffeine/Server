@@ -56,16 +56,11 @@ public class AuthController : ControllerBase
     [RefreshAuthorize]
     public ActionResult<AuthResponse> Refresh()
     {
-        JwtSecurityToken jwtToken = (JwtSecurityToken)HttpContext.Items["JwtToken"]!;
-        string? id = jwtToken.GetClaimByType("id");
-
-        if (id == null)
-        {
-            return Unauthorized();
-        }
+        JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
+        long id = long.Parse(jwtToken.GetClaimByType("id"));
 
         AuthResponse response = new AuthResponse();
-        response.access_token = mAuthService.GenerateAccessToken(long.Parse(id));
+        response.access_token = mAuthService.GenerateAccessToken(id);
 
         return response;
     }
