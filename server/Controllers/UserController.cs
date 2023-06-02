@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using server.Attributes;
 using server.DTOs;
 using server.Entities;
+using server.Middlewares;
 using server.Services;
 using server.Utilities;
 
@@ -71,9 +72,16 @@ namespace server.Controllers
 
         [HttpDelete]
         [Authorize]
-        public ActionResult Delete()
+        public async Task<ActionResult> Delete()
         {
-            return Unauthorized();
+            JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
+            long id = long.Parse(jwtToken.GetClaimByType("id"));
+
+            await mUserService.Delete(id);
+
+            JwtMiddleware.BanUser(id, TimeSpan.FromDays(28));
+
+            return Ok();
         }
     }
 }
