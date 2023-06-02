@@ -62,4 +62,17 @@ public class UserService : IUserService
 
         return true;
     }
+
+    public async Task Delete(long id)
+    {
+        UserEntity? user = await mContext.Users.FindAsync(id);
+
+        if (user == null)
+        {
+            throw new Exception("The user with that ID does not exist.");
+        }
+
+        mContext.Users.Remove(user);
+        await mContext.SaveChangesAsync();
+    }
 }

@@ -71,9 +71,14 @@ namespace server.Controllers
 
         [HttpDelete]
         [Authorize]
-        public ActionResult Delete()
+        public async Task<ActionResult> Delete()
         {
-            return Unauthorized();
+            JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
+            long id = long.Parse(jwtToken.GetClaimByType("id"));
+
+            await mUserService.Delete(id);
+
+            return Ok();
         }
     }
 }
