@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using server.DTOs;
