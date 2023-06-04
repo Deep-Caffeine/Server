@@ -25,14 +25,14 @@ public class UserService : IUserService
     public async Task<bool> Create(CreateUserRequest body)
     {
         //이메일 중복 조회
-        List<string> user = await this.mContext.Users
+        /*List<string> user = await this.mContext.Users
             .Where(x => x.Email == body.Email)
             .Select(x => x.Email)
             .ToListAsync();
         if (user.Count == 0)
         {
             return false;
-        }
+        }*/
 
         UserEntity userEntity = new UserEntity
         {

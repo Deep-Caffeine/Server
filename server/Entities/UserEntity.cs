@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace server.Entities
 {
     public class UserEntity : BaseEntity
     {
         [Required(ErrorMessage = "이메일을 입력하지 않았습니다.")]
+        [System.ComponentModel.DataAnnotations.Schema.Index(IsUnique = true)]
         [EmailAddress(ErrorMessage = "이메일 형식이 올바르지 않습니다.")]
         public string Email { get; set; }
 
