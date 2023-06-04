@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using server.Entities;
+using server.Utilities;
 
 namespace server.Services;
 
@@ -25,7 +26,7 @@ public class AuthService
     {
         UserEntity userEntity = new UserEntity();
         userEntity.Email = email;
-        userEntity.Password = password;
+        userEntity.Password = Password.SHA512(password);
 
         UserEntity[] results = mContext.Users.Where(
             userEntity => (userEntity.Email == email) && (userEntity.Password == password)

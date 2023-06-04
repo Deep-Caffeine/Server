@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using server.DTOs;
 using server.Entities;
 using server.Interface;
+using server.Utilities;
 
 namespace server.Services;
 
@@ -33,26 +34,13 @@ public class UserService : IUserService
             return false;
         }
 
-        //비밀번호 암호화
-        byte[] buffer = Encoding.Default.GetBytes(body.Password);
-        byte[] hashBuffer;
-        string hashed = "";
-        using (SHA256 sha256 = SHA256.Create())
-        {
-            hashBuffer = sha256.ComputeHash(buffer);
-        }
-
-        foreach (var temp in hashBuffer)
-        {
-            hashed += temp.ToString("X2");
-        }
         UserEntity userEntity = new UserEntity
         {
             //Birth Entity 수정필요 (string type)
             Birth = body.Birth,
             Email = body.Email,
             Level = 0,
-            Password = hashed,
+            Password = Password.SHA512(body.Password),
             Phone = body.Phone,
             ProfileURL = null,
             Sns = "",
