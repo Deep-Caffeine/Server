@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 using server.Attributes;
 using server.DTOs;
 using server.Entities;
@@ -57,7 +58,7 @@ namespace server.Controllers
             }
             catch (Exception error)
             {
-                return Ok("testing success");
+                return BadRequest();
             }
         }
 
