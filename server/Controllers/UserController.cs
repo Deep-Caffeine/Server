@@ -60,7 +60,9 @@ namespace server.Controllers
             {
                 return BadRequest(new
                 {
-                    status = 400, title = "This is a duplicate email.", errors = new { Email = "중복된 이메일 입니다." }
+                    status = 400,
+                    title = "This is a duplicate email.",
+                    errors = new { Email = "중복된 이메일 입니다." }
                 });
             }
         }
