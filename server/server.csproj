@@ -36,7 +36,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Entities\" />
     <Folder Include="Utilities\" />
     <Folder Include="Attributes\" />
     <Folder Include="Middlewares\" />
