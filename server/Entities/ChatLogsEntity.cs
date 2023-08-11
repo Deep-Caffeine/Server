@@ -5,10 +5,10 @@ namespace server.Entities
     public class ChatLogsEntity : BaseChatLogsEntity
     {
         [Required]
-        public virtual BaseEntity sender { get; set; }
+        public virtual UserEntity sender { get; set; }
 
         [Required]
-        public virtual BaseEntity receiver { get; set; }
+        public virtual UserEntity receiver { get; set; }
 
         [Required]
         public string DateTime { get; set; }
@@ -17,7 +17,7 @@ namespace server.Entities
         public string Message { get; set; }
 
         [Required]
-        public virtual BaseChatRoomEntity RoomId { get; set; }
+        public virtual ChatRoomEntity RoomId { get; set; }
 
         public ChatLogsEntity()
         {
