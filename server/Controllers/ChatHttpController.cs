@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using server.Services;
 
 namespace server.Controllers;
 
@@ -6,6 +7,10 @@ namespace server.Controllers;
 [ApiController]
 public class ChatHttpController : ControllerBase
 {
-    private readonly
-    
+    public readonly ChatHttpService mChatHttpService;
+
+    public ChatHttpController(ChatHttpService chatHttpService)
+    {
+        mChatHttpService = chatHttpService;
+    }
 }
