@@ -2,7 +2,7 @@
 
 namespace server.Entities
 {
-    public class ChatLogsEntity : BaseChatLogsEntity
+    public class ChatLogsEntity : BaseEntity
     {
         [Required]
         public virtual UserEntity sender { get; set; }

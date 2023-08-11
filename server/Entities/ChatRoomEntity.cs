@@ -2,7 +2,7 @@
 
 namespace server.Entities
 {
-    public class ChatRoomEntity : BaseChatRoomEntity
+    public class ChatRoomEntity : BaseEntity
     {
         [Required]
         public string Name { get; set; }
