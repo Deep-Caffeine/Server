@@ -22,7 +22,7 @@ namespace server.Entities
 
         [Required(ErrorMessage = "생년월일을 입력하지 않았습니다.")]
         [RegularExpression(@"^\d{4}-\d{2}-\d{2}$", ErrorMessage = "생년월일의 형식이 올바르지 않습니다.")]
-        public string Birth { get; set; }
+        public DateTime Birth { get; set; }
 
         public string? ProfileURL { get; set; }
 
@@ -36,7 +36,7 @@ namespace server.Entities
             Password = "";
             Username = "";
             Phone = "";
-            Birth = "";
+            Birth = new DateTime();
             ProfileURL = null;
             Level = 0;
             Sns = "";
