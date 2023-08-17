@@ -2,7 +2,7 @@
 
 namespace server.Entities
 {
-    public class ChatParticipantsEntity
+    public class ChatParticipantsEntity : BaseEntity
     {
         [Required]
         public virtual UserEntity UserId { get; set; }
