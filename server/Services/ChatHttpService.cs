@@ -4,10 +4,10 @@ namespace server.Services;
 
 public class ChatHttpService : IChatHttpService
 {
-    private readonly ApplicationDbContext mContext;
+    private readonly ApplicationDbContext _context;
 
     public ChatHttpService(ApplicationDbContext context)
     {
-        mContext = context;
+        _context = context;
     }
 }
