@@ -35,6 +35,7 @@
     <None Remove="Middlewares\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DTOs\Chat\" />
     <Folder Include="Utilities\" />
     <Folder Include="Attributes\" />
     <Folder Include="Middlewares\" />

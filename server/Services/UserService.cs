@@ -6,15 +6,15 @@ namespace server.Services;
 
 public class UserService : IUserService
 {
-    private readonly ApplicationDbContext mContext;
+    private readonly ApplicationDbContext _context;
 
     public UserService(ApplicationDbContext context)
     {
-        mContext = context;
+        _context = context;
     }
     private bool UserEntityExists(long id)
     {
-        return (mContext.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+        return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 
     public GetUserResponse Create()
@@ -24,7 +24,7 @@ public class UserService : IUserService
 
     public async Task<GetUserResponse?> Read(long id)
     {
-        UserEntity? user = await this.mContext.Users.FindAsync(id);
+        UserEntity? user = await this._context.Users.FindAsync(id);
 
         if (user == null)
         {
@@ -46,7 +46,7 @@ public class UserService : IUserService
 
     public async Task<bool> Update(long id, PutUserRequest model)
     {
-        UserEntity? user = await this.mContext.Users.FindAsync(id);
+        UserEntity? user = await this._context.Users.FindAsync(id);
 
         if (user == null)
         {
@@ -58,21 +58,21 @@ public class UserService : IUserService
         user.Phone = model.phone ?? user.Phone;
         user.Birth = model.birth ?? user.Birth;
 
-        await mContext.SaveChangesAsync();
+        await _context.SaveChangesAsync();
 
         return true;
     }
 
     public async Task Delete(long id)
     {
-        UserEntity? user = await mContext.Users.FindAsync(id);
+        UserEntity? user = await _context.Users.FindAsync(id);
 
         if (user == null)
         {
             throw new Exception("The user with that ID does not exist.");
         }
 
-        mContext.Users.Remove(user);
-        await mContext.SaveChangesAsync();
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
     }
 }
