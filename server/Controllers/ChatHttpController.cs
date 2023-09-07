@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Mvc;
+using server.Attributes;
+using server.DTOs;
 using server.Services;
+using server.Utilities;
 
 namespace server.Controllers;
 
@@ -12,5 +16,21 @@ public class ChatHttpController : ControllerBase
     public ChatHttpController(ChatHttpService chatHttpService)
     {
         mChatHttpService = chatHttpService;
+    }
+
+    [Authorize]
+    public async Task<ActionResult> Join(ChatJoinRequest chatJoinRequest)  
+    {
+        JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
+        long id = long.Parse(jwtToken.GetClaimByType("id"));
+
+        bool? result = await mChatHttpService.Join(id, chatJoinRequest); 
+
+        if (result == null)     
+        {              
+            return NotFound();
+        }
+
+        return Ok();
     }
 }
