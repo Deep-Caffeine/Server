@@ -18,8 +18,9 @@ public class ChatHttpController : ControllerBase
         mChatHttpService = chatHttpService;
     }
 
+    [HttpPost]
     [Authorize]
-    public async Task<ActionResult> Join(ChatJoinRequest chatJoinRequest)  
+    public async Task<ActionResult> Join([FromBody] ChatJoinRequest chatJoinRequest)  
     {
         JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
         long id = long.Parse(jwtToken.GetClaimByType("id"));
