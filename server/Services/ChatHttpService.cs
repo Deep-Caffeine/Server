@@ -20,8 +20,8 @@ public class ChatHttpService : IChatHttpService
     {
         ChatRoomEntity? room = await this._context.ChatRoomEntities.FindAsync(chatJoinRequest.roomid);
 
-        if (room == null)  
-        {          
+        if (room == null)
+        {
             return null;
         }
 

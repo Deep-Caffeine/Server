@@ -20,15 +20,15 @@ public class ChatHttpController : ControllerBase
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult> Join([FromBody] ChatJoinRequest chatJoinRequest)  
+    public async Task<ActionResult> Join([FromBody] ChatJoinRequest chatJoinRequest)
     {
         JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
         long id = long.Parse(jwtToken.GetClaimByType("id"));
 
-        bool? result = await mChatHttpService.Join(id, chatJoinRequest); 
+        bool? result = await mChatHttpService.Join(id, chatJoinRequest);
 
-        if (result == null)     
-        {              
+        if (result == null)
+        {
             return NotFound();
         }
 
