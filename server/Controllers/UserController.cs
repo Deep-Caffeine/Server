@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 using server.Attributes;
 using server.DTOs;
 using server.Entities;
@@ -44,13 +45,27 @@ namespace server.Controllers
         }
 
         [HttpPost]
-        public ActionResult<KeyValueErrorResponse> Create([FromBody] UserEntity model)
+        public async Task<ActionResult<KeyValueErrorResponse>> Create([FromBody] CreateUserRequest body)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                bool result = await this.mUserService.Create(body);
+                if (result == false)
+                {
+                    return BadRequest();
+                }
+
+                return Ok();
             }
-            return Ok();
+            catch (Exception error)
+            {
+                return BadRequest(new
+                {
+                    status = 400,
+                    title = "This is a duplicate email.",
+                    errors = new { Email = "중복된 이메일 입니다." }
+                });
+            }
         }
 
         [HttpPut]

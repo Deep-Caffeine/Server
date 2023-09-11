@@ -1,6 +1,10 @@
-﻿using server.DTOs;
+﻿using System.Security.Cryptography;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
+using server.DTOs;
 using server.Entities;
 using server.Interface;
+using server.Utilities;
 
 namespace server.Services;
 
@@ -12,14 +16,29 @@ public class UserService : IUserService
     {
         _context = context;
     }
+
     private bool UserEntityExists(long id)
     {
         return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 
-    public GetUserResponse Create()
+    public async Task<bool> Create(CreateUserRequest body)
     {
-        return new GetUserResponse();
+        UserEntity userEntity = new UserEntity
+        {
+            //Birth Entity 수정필요 (string type)
+            Birth = body.Birth,
+            Email = body.Email,
+            Level = 0,
+            Password = Password.SHA512(body.Password),
+            Phone = body.Phone,
+            ProfileURL = null,
+            Sns = "",
+            Username = body.Username
+        };
+        this.mContext.Users.Add(userEntity);
+        await this.mContext.SaveChangesAsync();
+        return true;
     }
 
     public async Task<GetUserResponse?> Read(long id)

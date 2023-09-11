@@ -25,6 +25,7 @@ if (builder.Environment.IsDevelopment())
     {
         var folder = Environment.SpecialFolder.LocalApplicationData;
         var path = Environment.GetFolderPath(folder);
+        // Local SQLite DbPath :: ~/.local/share/data.db
         string DbPath = System.IO.Path.Join(path, "./data.db");
         options.UseSqlite($"Data Source={DbPath}");
     });

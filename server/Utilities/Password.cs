@@ -1,4 +1,7 @@
-﻿namespace server.Utilities;
+﻿using System.Security.Cryptography;
+using System.Text;
+
+namespace server.Utilities;
 
 public static class Password
 {
@@ -16,6 +19,15 @@ public static class Password
         }
 
         return new string(password);
+    }
+
+    public static string SHA512(string input)
+    {
+        byte[] data = Encoding.ASCII.GetBytes(input);
+        SHA512 sha512 = System.Security.Cryptography.SHA512.Create();
+        byte[] result = sha512.ComputeHash(data);
+
+        return Encoding.ASCII.GetString(result);
     }
 }
 
