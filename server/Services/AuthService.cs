@@ -9,7 +9,7 @@ namespace server.Services;
 
 public class AuthService
 {
-    private readonly ApplicationDbContext mContext;
+    private readonly ApplicationDbContext _context;
     private static readonly string SECRET;
 
     static AuthService()
@@ -19,7 +19,7 @@ public class AuthService
 
     public AuthService(ApplicationDbContext context)
     {
-        mContext = context;
+        _context = context;
     }
 
     public UserEntity? UserAuthorize(string email, string password)
@@ -28,7 +28,7 @@ public class AuthService
         userEntity.Email = email;
         userEntity.Password = Password.SHA512(password);
 
-        UserEntity[] results = mContext.Users.Where(
+        UserEntity[] results = _context.Users.Where(
             userEntity => (userEntity.Email == email) && (userEntity.Password == password)
         ).ToArray();
 
