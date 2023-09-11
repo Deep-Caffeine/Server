@@ -1,14 +1,17 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using server.Attributes;
 using server.DTOs;
 using server.Entities;
+using server.Middlewares;
 using server.Services;
-
+using server.Utilities;
 
 namespace server.Controllers
 {
@@ -24,21 +27,22 @@ namespace server.Controllers
         }
 
         [HttpGet]
-        public ActionResult<GetUserResponse> Get()
+        [Authorize]
+        public async Task<ActionResult<GetUserResponse>> Read()
         {
-            GetUserResponse getUserResponse = new GetUserResponse
+            JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
+            long id = long.Parse(jwtToken.GetClaimByType("id"));
+
+            var userResponse = await mUserService.Read(id);
+
+            if (userResponse == null)
             {
-                email = "von0401@deu.ac.kr",
-                username = "Eun Jung Von",
-                phone = "010-1234-5678",
-                birth = "2014-04-01",
-                profile_url = "/image/trolls",
-                level = 418,
-                sns = new string[3] { "kakao", "naver", "google" }
-            };
-            return Ok(getUserResponse);
+                return Unauthorized();
+            }
+
+            return Ok(userResponse);
         }
-        
+
         [HttpPost]
         public ActionResult<KeyValueErrorResponse> Create([FromBody] UserEntity model)
         {
@@ -48,17 +52,36 @@ namespace server.Controllers
             }
             return Ok();
         }
-        
+
         [HttpPut]
-        public ActionResult<KeyValueErrorResponse> Update()
+        [Authorize]
+        public async Task<ActionResult<KeyValueErrorResponse>> Update([FromBody] PutUserRequest model)
         {
+            JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
+            long id = long.Parse(jwtToken.GetClaimByType("id"));
+
+            bool userResponse = await mUserService.Update(id, model);
+
+            if (!userResponse)
+            {
+                return Unauthorized();
+            }
+
             return Ok();
         }
 
         [HttpDelete]
-        public ActionResult Delete()
+        [Authorize]
+        public async Task<ActionResult> Delete()
         {
-            return Unauthorized();
+            JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
+            long id = long.Parse(jwtToken.GetClaimByType("id"));
+
+            await mUserService.Delete(id);
+
+            JwtMiddleware.BanUser(id, TimeSpan.FromDays(28));
+
+            return Ok();
         }
     }
 }

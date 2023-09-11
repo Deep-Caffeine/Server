@@ -36,7 +36,7 @@ namespace server.Entities
             Password = "";
             Username = "";
             Phone = "";
-            Birth = "";
+            Birth = new DateTime();
             ProfileURL = null;
             Level = 0;
             Sns = "";
