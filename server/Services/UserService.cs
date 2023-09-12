@@ -26,7 +26,6 @@ public class UserService : IUserService
     {
         UserEntity userEntity = new UserEntity
         {
-            //Birth Entity 수정필요 (string type)
             Birth = body.Birth,
             Email = body.Email,
             Level = 0,

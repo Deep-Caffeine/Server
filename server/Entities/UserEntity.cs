@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace server.Entities
@@ -23,7 +23,7 @@ namespace server.Entities
         
         [Required]
         [RegularExpression(@"^\d{4}-\d{2}-\d{2}$")]
-        public string Birth { get; set; }
+        public DateTime Birth { get; set; }
         
         public string? ProfileURL { get; set; }
 

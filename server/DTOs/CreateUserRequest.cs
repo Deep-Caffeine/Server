@@ -22,5 +22,5 @@ public class CreateUserRequest
 
     [Required]
     [RegularExpression(@"^\d{4}-\d{2}-\d{2}$")]
-    public string Birth { get; set; }
+    public DateTime Birth { get; set; }
 }
