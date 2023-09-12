@@ -1,6 +1,4 @@
-﻿using System.Data.Entity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.EntityFrameworkCore;
 using server.Entities;
 using DbContext = Microsoft.EntityFrameworkCore.DbContext;
 
