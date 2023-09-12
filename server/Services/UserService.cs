@@ -36,8 +36,8 @@ public class UserService : IUserService
             Sns = "",
             Username = body.Username
         };
-        this.mContext.Users.Add(userEntity);
-        await this.mContext.SaveChangesAsync();
+        this._context.Users.Add(userEntity);
+        await this._context.SaveChangesAsync();
         return true;
     }
 

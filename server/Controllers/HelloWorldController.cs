@@ -7,17 +7,17 @@ namespace server.Controllers;
 [Route("[controller]")]
 public class HelloWorldController : ControllerBase
 {
-    private readonly ILogger<HelloWorldController> mLogger;
+    private readonly ILogger<HelloWorldController> _logger;
 
     public HelloWorldController(ILogger<HelloWorldController> logger)
     {
-        mLogger = logger;
+        _logger = logger;
     }
 
     [HttpGet]
     public string Get()
     {
-        mLogger.LogInformation($"Hello");
+        _logger.LogInformation($"Hello");
 
         return "Hello, World!";
     }

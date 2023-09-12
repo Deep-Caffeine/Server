@@ -20,11 +20,11 @@ namespace server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly UserService mUserService;
+        private readonly UserService _userService;
 
         public UserController(UserService userService)
         {
-            this.mUserService = userService;
+            this._userService = userService;
         }
 
         [HttpGet]
@@ -34,7 +34,7 @@ namespace server.Controllers
             JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
             long id = long.Parse(jwtToken.GetClaimByType("id"));
 
-            var userResponse = await mUserService.Read(id);
+            var userResponse = await _userService.Read(id);
 
             if (userResponse == null)
             {
@@ -49,7 +49,7 @@ namespace server.Controllers
         {
             try
             {
-                bool result = await this.mUserService.Create(body);
+                bool result = await this._userService.Create(body);
                 if (result == false)
                 {
                     return BadRequest();
@@ -75,7 +75,7 @@ namespace server.Controllers
             JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
             long id = long.Parse(jwtToken.GetClaimByType("id"));
 
-            bool userResponse = await mUserService.Update(id, model);
+            bool userResponse = await _userService.Update(id, model);
 
             if (!userResponse)
             {
@@ -92,7 +92,7 @@ namespace server.Controllers
             JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
             long id = long.Parse(jwtToken.GetClaimByType("id"));
 
-            await mUserService.Delete(id);
+            await _userService.Delete(id);
 
             JwtMiddleware.BanUser(id, TimeSpan.FromDays(28));
 
