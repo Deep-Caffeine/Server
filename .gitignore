@@ -265,3 +265,5 @@ logs
 .swp
 server/Migrations/
 server/Data/
+Data/
+Migrations/
