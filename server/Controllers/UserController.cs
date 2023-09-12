@@ -27,23 +27,6 @@ namespace server.Controllers
             this._userService = userService;
         }
 
-        [HttpGet]
-        [Authorize]
-        public async Task<ActionResult<GetUserResponse>> Read()
-        {
-            JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
-            long id = long.Parse(jwtToken.GetClaimByType("id"));
-
-            var userResponse = await _userService.Read(id);
-
-            if (userResponse == null)
-            {
-                return Unauthorized();
-            }
-
-            return Ok(userResponse);
-        }
-
         [HttpPost]
         public async Task<ActionResult<KeyValueErrorResponse>> Create([FromBody] CreateUserRequest body)
         {
@@ -66,6 +49,23 @@ namespace server.Controllers
                     errors = new { Email = "중복된 이메일 입니다." }
                 });
             }
+        }
+        
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult<GetUserResponse>> Read()
+        {
+            JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
+            long id = long.Parse(jwtToken.GetClaimByType("id"));
+
+            var userResponse = await _userService.Read(id);
+
+            if (userResponse == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(userResponse);
         }
 
         [HttpPut]
