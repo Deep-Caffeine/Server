@@ -42,7 +42,7 @@ namespace server.Controllers
                 });
             }
         }
-        
+
         [HttpGet]
         [Authorize]
         public async Task<ActionResult<GetUserResponse>> Read()

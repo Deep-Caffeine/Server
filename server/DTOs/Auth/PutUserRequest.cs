@@ -12,6 +12,6 @@ public class PutUserRequest
 
     [Phone]
     public string? phone { get; set; }
-    
+
     public DateTime? birth { get; set; }
 }
