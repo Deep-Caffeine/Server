@@ -1,7 +1,4 @@
-﻿using server.Services;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace server.Middlewares;
+﻿namespace server.Middlewares;
 
 public class CorsMiddleware
 {
