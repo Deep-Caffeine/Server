@@ -34,7 +34,7 @@ public class ChatHttpService : IChatHttpService
 
         return true;
     }
-    
+
     public async Task<List<ChatLogResponse>> ChatLog(long roomId)
     {
         // RoomId가 동일한 채팅 기록들을 모두 받아옴
@@ -48,12 +48,14 @@ public class ChatHttpService : IChatHttpService
         {
             ChatLogResponse response = new ChatLogResponse
             {
-                sender = chatLog.Sender, message = chatLog.Message, datetime = chatLog.DateTime
+                sender = chatLog.Sender,
+                message = chatLog.Message,
+                datetime = chatLog.DateTime
             };
-            
+
             chatLogResponses.Add(response);
         }
-        
+
         return chatLogResponses;
     }
 

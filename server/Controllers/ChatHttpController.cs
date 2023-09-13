@@ -41,7 +41,7 @@ public class ChatHttpController : ControllerBase
         var chatLogResponse = await _chatHttpService.ChatLog(roomId);
 
         if (chatLogResponse == null) return NotFound();
-        
+
         return Ok(chatLogResponse);
     }
 }
