@@ -38,7 +38,7 @@ public class ChatHttpService : IChatHttpService
     public async Task<List<ChatLogResponse>> ChatLog(long roomId)
     {
         // RoomId가 동일한 채팅 기록들을 모두 받아옴
-        var chatLogs = await this._context.ChatLogsEntities.Where(log => log.RoomId == roomId).ToListAsync();
+        var chatLogs = this._context.ChatLogsEntities.Where(log => log.RoomId == roomId).ToList();
         List<ChatLogResponse> chatLogResponses = new List<ChatLogResponse>();
 
         // RoomId가 동일한 채팅 기록이 없는 경우 null을 반환함.
