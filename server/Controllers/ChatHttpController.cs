@@ -34,4 +34,16 @@ public class ChatHttpController : ControllerBase
 
         return Ok();
     }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<ChatLogResponse> ChatLog([FromBody] ChatLogRequest chatLogRequest)
+    {
+        long id = chatLogRequest.id;
+        long roomId = chatLogRequest.room_id;
+
+        var chatLogResponse = await _chatHttpService.ChatLog(id, roomId);
+
+        return chatLogResponse;
+    }
 }
