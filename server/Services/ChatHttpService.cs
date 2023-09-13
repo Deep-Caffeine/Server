@@ -43,7 +43,7 @@ public class ChatHttpService : IChatHttpService
             sender = chatLog.Sender,
             receiver = chatLog.Receiver,
             message = chatLog.Message,
-            datatime = chatLog.DateTime
+            datetime = chatLog.DateTime
         };
         
         return chatLogs;

@@ -8,5 +8,5 @@ public class ChatLogResponse
     
     public string message { get; set; }
 
-    public DateTime datatime { get; set; }
+    public DateTime datetime { get; set; }
 }
