@@ -26,7 +26,6 @@ public class UserService : IUserService
     {
         UserEntity userEntity = new UserEntity
         {
-            //Birth Entity 수정필요 (string type)
             Birth = body.Birth,
             Email = body.Email,
             Level = 0,
@@ -36,8 +35,8 @@ public class UserService : IUserService
             Sns = "",
             Username = body.Username
         };
-        this.mContext.Users.Add(userEntity);
-        await this.mContext.SaveChangesAsync();
+        this._context.Users.Add(userEntity);
+        await this._context.SaveChangesAsync();
         return true;
     }
 

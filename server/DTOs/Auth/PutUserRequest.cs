@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.Build.Framework;
 
 namespace server.DTOs;
 
@@ -14,6 +13,5 @@ public class PutUserRequest
     [Phone]
     public string? phone { get; set; }
 
-    [RegularExpression(@"^\d{4}-\d{2}-\d{2}$")]
     public DateTime? birth { get; set; }
 }

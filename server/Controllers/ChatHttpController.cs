@@ -11,11 +11,11 @@ namespace server.Controllers;
 [ApiController]
 public class ChatHttpController : ControllerBase
 {
-    public readonly ChatHttpService mChatHttpService;
+    public readonly ChatHttpService _chatHttpService;
 
     public ChatHttpController(ChatHttpService chatHttpService)
     {
-        mChatHttpService = chatHttpService;
+        _chatHttpService = chatHttpService;
     }
 
     [HttpPost]
@@ -25,7 +25,7 @@ public class ChatHttpController : ControllerBase
         JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
         long id = long.Parse(jwtToken.GetClaimByType("id"));
 
-        bool? result = await mChatHttpService.Join(id, chatJoinRequest);
+        bool? result = await _chatHttpService.Join(id, chatJoinRequest);
 
         if (result == null)
         {

@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using server.DTOs;
+﻿using server.DTOs;
 using server.Entities;
 using server.Interface;
 

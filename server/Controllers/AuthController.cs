@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Mvc;
 using server.Attributes;
 using server.DTOs;
@@ -17,18 +12,18 @@ namespace server.Controllers;
 [ApiController]
 public class AuthController : ControllerBase
 {
-    private readonly AuthService mAuthService;
+    private readonly AuthService _authService;
 
     public AuthController(AuthService authService)
     {
-        mAuthService = authService;
+        _authService = authService;
     }
 
     [HttpPost]
     [AllowAnonymous]
     public ActionResult<AuthResponse> Auth([FromBody] AuthRequest authRequest)
     {
-        UserEntity? userEntity = mAuthService.UserAuthorize(authRequest.email, authRequest.password);
+        UserEntity? userEntity = _authService.UserAuthorize(authRequest.email, authRequest.password);
 
         AuthResponse response = new AuthResponse();
 
@@ -44,8 +39,8 @@ public class AuthController : ControllerBase
         }
         else
         {
-            response.access_token = mAuthService.GenerateAccessToken(userEntity.Id);
-            response.refresh_token = mAuthService.GenerateRefreshToken(userEntity.Id);
+            response.access_token = _authService.GenerateAccessToken(userEntity.Id);
+            response.refresh_token = _authService.GenerateRefreshToken(userEntity.Id);
 
             return response;
         }
@@ -60,7 +55,7 @@ public class AuthController : ControllerBase
         long id = long.Parse(jwtToken.GetClaimByType("id"));
 
         AuthResponse response = new AuthResponse();
-        response.access_token = mAuthService.GenerateAccessToken(id);
+        response.access_token = _authService.GenerateAccessToken(id);
 
         return response;
     }

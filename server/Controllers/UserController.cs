@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol;
 using server.Attributes;
 using server.DTOs;
-using server.Entities;
 using server.Middlewares;
 using server.Services;
 using server.Utilities;
@@ -20,28 +12,11 @@ namespace server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly UserService mUserService;
+        private readonly UserService _userService;
 
         public UserController(UserService userService)
         {
-            this.mUserService = userService;
-        }
-
-        [HttpGet]
-        [Authorize]
-        public async Task<ActionResult<GetUserResponse>> Read()
-        {
-            JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
-            long id = long.Parse(jwtToken.GetClaimByType("id"));
-
-            var userResponse = await mUserService.Read(id);
-
-            if (userResponse == null)
-            {
-                return Unauthorized();
-            }
-
-            return Ok(userResponse);
+            this._userService = userService;
         }
 
         [HttpPost]
@@ -49,7 +24,7 @@ namespace server.Controllers
         {
             try
             {
-                bool result = await this.mUserService.Create(body);
+                bool result = await this._userService.Create(body);
                 if (result == false)
                 {
                     return BadRequest();
@@ -68,6 +43,23 @@ namespace server.Controllers
             }
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult<GetUserResponse>> Read()
+        {
+            JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
+            long id = long.Parse(jwtToken.GetClaimByType("id"));
+
+            var userResponse = await _userService.Read(id);
+
+            if (userResponse == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(userResponse);
+        }
+
         [HttpPut]
         [Authorize]
         public async Task<ActionResult<KeyValueErrorResponse>> Update([FromBody] PutUserRequest model)
@@ -75,7 +67,7 @@ namespace server.Controllers
             JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
             long id = long.Parse(jwtToken.GetClaimByType("id"));
 
-            bool userResponse = await mUserService.Update(id, model);
+            bool userResponse = await _userService.Update(id, model);
 
             if (!userResponse)
             {
@@ -92,7 +84,7 @@ namespace server.Controllers
             JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
             long id = long.Parse(jwtToken.GetClaimByType("id"));
 
-            await mUserService.Delete(id);
+            await _userService.Delete(id);
 
             JwtMiddleware.BanUser(id, TimeSpan.FromDays(28));
 
