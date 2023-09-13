@@ -36,7 +36,6 @@ public class ChatHttpController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
     public async Task<ActionResult> ChatLog(long roomId)
     {
         var chatLogResponse = await _chatHttpService.ChatLog(roomId);
