@@ -33,4 +33,20 @@ public class ChatHttpService : IChatHttpService
 
         return true;
     }
+    
+    public async Task<ChatLogResponse> ChatLog(long id, long roomId)
+    {
+        var chatLog = await this._context.ChatLogsEntities.FindAsync(id, roomId);
+            
+        ChatLogResponse chatLogs = new ChatLogResponse
+        {
+            sender = chatLog.Sender,
+            receiver = chatLog.Receiver,
+            message = chatLog.Message,
+            datatime = chatLog.DateTime
+        };
+        
+        return chatLogs;
+    }
+
 }
