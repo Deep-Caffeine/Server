@@ -37,13 +37,12 @@ public class ChatHttpController : ControllerBase
 
     [HttpGet]
     [Authorize]
-    public async Task<ChatLogResponse> ChatLog([FromBody] ChatLogRequest chatLogRequest)
+    public async Task<ActionResult> ChatLog(long roomId)
     {
-        long id = chatLogRequest.id;
-        long roomId = chatLogRequest.room_id;
+        var chatLogResponse = await _chatHttpService.ChatLog(roomId);
 
-        var chatLogResponse = await _chatHttpService.ChatLog(id, roomId);
-
-        return chatLogResponse;
+        if (chatLogResponse == null) return NotFound();
+        
+        return Ok(chatLogResponse);
     }
 }
