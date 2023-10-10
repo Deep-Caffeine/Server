@@ -5,6 +5,6 @@ namespace server.Interface;
 interface IUserService
 {
     public Task<bool> Create(CreateUserRequest body);
-    public Task<bool> SchoolInformation(CreateSchoolRequest body);
+    public Task<bool> AddSchoolInfo(CreateSchoolRequest body);
 
 }

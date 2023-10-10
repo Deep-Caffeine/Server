@@ -93,7 +93,7 @@ public class UserService : IUserService
         _context.Users.Remove(user);
         await _context.SaveChangesAsync();
     }
-    public async Task<bool> SchoolInformation(CreateSchoolRequest body)
+    public async Task<bool> AddSchoolInfo(CreateSchoolRequest body)
     {
         /*
          * 도훈 선배와 얘기한 후 프론트에 전달 필요
