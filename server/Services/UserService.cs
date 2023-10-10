@@ -1,5 +1,6 @@
-﻿using System.Security.Cryptography;
+using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.DTOs;
 using server.Entities;
@@ -11,10 +12,12 @@ namespace server.Services;
 public class UserService : IUserService
 {
     private readonly ApplicationDbContext _context;
+    private readonly AuthService _authService;
 
-    public UserService(ApplicationDbContext context)
+    public UserService(ApplicationDbContext context, AuthService auth)
     {
         _context = context;
+        _authService = auth;
     }
 
     private bool UserEntityExists(long id)
@@ -22,7 +25,7 @@ public class UserService : IUserService
         return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 
-    public async Task<bool> Create(CreateUserRequest body)
+    public async Task<AuthResponse?> Create(CreateUserRequest body)
     {
         UserEntity userEntity = new UserEntity
         {
@@ -37,7 +40,12 @@ public class UserService : IUserService
         };
         this._context.Users.Add(userEntity);
         await this._context.SaveChangesAsync();
-        return true;
+        Console.WriteLine(userEntity.Id);
+        return new AuthResponse
+        {
+            access_token = _authService.GenerateAccessToken(userEntity.Id),
+            refresh_token = _authService.GenerateRefreshToken(userEntity.Id)
+        };
     }
 
     public async Task<GetUserResponse?> Read(long id)

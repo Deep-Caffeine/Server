@@ -24,13 +24,12 @@ namespace server.Controllers
         {
             try
             {
-                bool result = await this._userService.Create(body);
-                if (result == false)
+                AuthResponse? result = await this._userService.Create(body);
+                /*if (result == null)
                 {
                     return BadRequest();
-                }
-
-                return Ok();
+                }*/
+                return Ok(result);
             }
             catch (Exception error)
             {
