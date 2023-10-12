@@ -1,4 +1,4 @@
-﻿using server.DTOs;
+using server.DTOs;
 
 namespace server.Interface;
 
