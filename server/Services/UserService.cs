@@ -103,15 +103,6 @@ public class UserService : IUserService
     }
     public async Task<bool> AddSchoolInfo(long id, CreateSchoolRequest body)
     {
-        /*
-         * 도훈 선배와 얘기한 후 프론트에 전달 필요
-         * 회원가입할 때 학교 정보를 입력할 때는 유저에게 토큰이 없음
-         * 1. 회원가입시 로그인 처리를 하여 JWT 토큰을 발급 받는다 -> JWT를 프론트에서 전달 받음       << 확정!
-         * 2. 회원가입 create가 끝난 후 고유 번호(id)를 던져준다 -> 고유 번호를 전달 받음 -> 고유 번호 if로 무결성 확인 필수
-         *
-         * 회원가입 create하고 프론트에서 로그인을 내부적으로 시행
-         */
-        
         SchoolInformationEntity schoolInformationEntity = new SchoolInformationEntity
         {
             User = id,
