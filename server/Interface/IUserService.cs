@@ -1,10 +1,11 @@
-using server.DTOs;
+﻿using server.DTOs;
 
 namespace server.Interface;
 
 interface IUserService
 {
-    public Task<bool> Create(CreateUserRequest body);
-    public Task<bool> AddSchoolInfo(CreateSchoolRequest body);
+    public Task<AuthResponse> Create(CreateUserRequest body);
+    public Task<bool> AddSchoolInfo(long id, CreateSchoolRequest body);
 
 }
+

@@ -40,6 +40,7 @@ public class UserService : IUserService
         };
         this._context.Users.Add(userEntity);
         await this._context.SaveChangesAsync();
+        
         return new AuthResponse
         {
             access_token = _authService.GenerateAccessToken(userEntity.Id),
@@ -100,7 +101,7 @@ public class UserService : IUserService
         _context.Users.Remove(user);
         await _context.SaveChangesAsync();
     }
-    public async Task<bool> AddSchoolInfo(CreateSchoolRequest body)
+    public async Task<bool> AddSchoolInfo(long id, CreateSchoolRequest body)
     {
         /*
          * 도훈 선배와 얘기한 후 프론트에 전달 필요
@@ -113,6 +114,7 @@ public class UserService : IUserService
         
         SchoolInformationEntity schoolInformationEntity = new SchoolInformationEntity
         {
+            User = id,
             School = body.School,
             Department = body.Department,
             State = body.State,

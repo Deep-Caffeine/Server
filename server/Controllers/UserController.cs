@@ -90,10 +90,13 @@ namespace server.Controllers
         [HttpPost]
         public async Task<ActionResult<KeyValueErrorResponse>> AddSchoolInfo([FromBody] CreateSchoolRequest body)
         {
-            bool result = await this._userService.AddSchoolInfo(body);
+            JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
+            long id = long.Parse(jwtToken.GetClaimByType("id"));
+
+            bool result = await this._userService.AddSchoolInfo(id, body);
             if (result == false)
             {
-                return BadRequest();        // 400
+                return BadRequest();
             }
 
             return Ok();
