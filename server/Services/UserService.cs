@@ -1,4 +1,4 @@
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +40,7 @@ public class UserService : IUserService
         };
         this._context.Users.Add(userEntity);
         await this._context.SaveChangesAsync();
-        
+
         return new AuthResponse
         {
             access_token = _authService.GenerateAccessToken(userEntity.Id),
@@ -111,7 +111,7 @@ public class UserService : IUserService
             State = body.State,
             Grade = body.Grade
         };
-        
+
         this._context.SchoolInformationEntities.Add(schoolInformationEntity);
         await this._context.SaveChangesAsync();
         return true;

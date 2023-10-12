@@ -17,6 +17,6 @@ namespace server.Entities
         public string State { get; set; }
 
         public int? Grade { get; set; }
-        
+
     }
 }

@@ -4,13 +4,13 @@ namespace server.DTOs;
 
 public class CreateSchoolRequest
 {
-    [Required] 
+    [Required]
     public string School { get; set; }
 
-    [Required] 
+    [Required]
     public string Department { get; set; }
 
-    [Required] 
+    [Required]
     public string State { get; set; }
 
     public int? Grade { get; set; }
