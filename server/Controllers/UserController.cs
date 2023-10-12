@@ -90,5 +90,18 @@ namespace server.Controllers
 
             return Ok();
         }
+
+        [Route("school")]
+        [HttpPost]
+        public async Task<ActionResult<KeyValueErrorResponse>> AddSchoolInfo([FromBody] CreateSchoolRequest body)
+        {
+            bool result = await this._userService.AddSchoolInfo(body);
+            if (result == false)
+            {
+                return BadRequest();        // 400
+            }
+
+            return Ok();
+        }
     }
 }
