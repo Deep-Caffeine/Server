@@ -26,13 +26,15 @@ public class AuthService
     {
         UserEntity userEntity = new UserEntity();
         userEntity.Email = email;
-        userEntity.Password = Password.SHA512(password);
-
-        UserEntity[] results = _context.Users.Where(
-            userEntity => (userEntity.Email == email) && (userEntity.Password == password)
-        ).ToArray();
-
-        return results.Length == 0 ? null : results[0];
+        try
+        {
+            UserEntity? user = this._context.Users.Single(u => u.Email == email && u.Password == password);
+            return user;
+        }
+        catch (InvalidOperationException e)
+        {
+            return null;
+        }
     }
 
     public string GenerateAccessToken(long userId)
