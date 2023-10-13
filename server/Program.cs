@@ -5,6 +5,15 @@ using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "_developCorsDisable",
+        policy =>
+        {
+            policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+        });
+});
+
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -57,6 +66,8 @@ if (app.Environment.IsDevelopment() || isSwagger)
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
+app.UseCors("_developCorsDisable");
 
 app.UseMiddleware<CorsMiddleware>();
 app.UseMiddleware<JwtMiddleware>();
