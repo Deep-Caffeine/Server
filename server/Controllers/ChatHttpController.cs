@@ -41,7 +41,7 @@ public class ChatHttpController : ControllerBase
         var chatLogResponse = await _chatHttpService.ChatLog(roomId);
 
         if (chatLogResponse == null) return NotFound();
-        
+
         JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
         long id = long.Parse(jwtToken.GetClaimByType("id"));
 
