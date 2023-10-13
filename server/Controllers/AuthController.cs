@@ -21,7 +21,7 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [AllowAnonymous]
-    public ActionResult<AuthResponse> Auth([FromBody] AuthRequest authRequest)
+    public ActionResult<AuthResponse?> Auth([FromBody] AuthRequest authRequest)
     {
         UserEntity? userEntity = _authService.UserAuthorize(authRequest.email, authRequest.password);
 
@@ -33,16 +33,14 @@ public class AuthController : ControllerBase
         else if (authRequest.no_token ?? false)
         {
             // No token response
-            return new AuthResponse();;
+            return Ok();
         }
-        else
+
+        return new AuthResponse()
         {
-            return new AuthResponse()
-            {
-                access_token = _authService.GenerateAccessToken(userEntity.Id),
-                refresh_token = _authService.GenerateRefreshToken(userEntity.Id)
-            };
-        }
+            access_token = _authService.GenerateAccessToken(userEntity.Id),
+            refresh_token = _authService.GenerateRefreshToken(userEntity.Id)
+        };
     }
 
     [Route("refresh")]
