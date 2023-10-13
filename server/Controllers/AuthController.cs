@@ -25,8 +25,6 @@ public class AuthController : ControllerBase
     {
         UserEntity? userEntity = _authService.UserAuthorize(authRequest.email, authRequest.password);
 
-        AuthResponse response = new AuthResponse();
-
         if (userEntity == null)
         {
             // Unauthorized
@@ -35,14 +33,15 @@ public class AuthController : ControllerBase
         else if (authRequest.no_token ?? false)
         {
             // No token response
-            return response;
+            return new AuthResponse();;
         }
         else
         {
-            response.access_token = _authService.GenerateAccessToken(userEntity.Id);
-            response.refresh_token = _authService.GenerateRefreshToken(userEntity.Id);
-
-            return response;
+            return new AuthResponse()
+            {
+                access_token = _authService.GenerateAccessToken(userEntity.Id),
+                refresh_token = _authService.GenerateRefreshToken(userEntity.Id)
+            };
         }
     }
 
