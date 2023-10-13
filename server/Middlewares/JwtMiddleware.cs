@@ -6,17 +6,17 @@ namespace server.Middlewares;
 
 public class JwtMiddleware
 {
-    private readonly RequestDelegate mNext;
-    private static Dictionary<long, DateTime> mUserBlackList;
+    private readonly RequestDelegate _next;
+    private static Dictionary<long, DateTime> _userBlackList;
 
     static JwtMiddleware()
     {
-        mUserBlackList = new Dictionary<long, DateTime>();
+        _userBlackList = new Dictionary<long, DateTime>();
     }
 
     public JwtMiddleware(RequestDelegate next)
     {
-        mNext = next;
+        _next = next;
     }
 
     public async Task Invoke(HttpContext context, AuthService authService)
@@ -39,17 +39,17 @@ public class JwtMiddleware
             }
         }
 
-        await mNext(context);
+        await _next(context);
     }
 
     public static void BanUser(long id, TimeSpan timeSpan)
     {
-        mUserBlackList[id] = DateTime.UtcNow + timeSpan;
+        _userBlackList[id] = DateTime.UtcNow + timeSpan;
     }
 
     public static bool IsBannedUser(long id)
     {
-        if (mUserBlackList.ContainsKey(id) && mUserBlackList[id] > DateTime.UtcNow)
+        if (_userBlackList.ContainsKey(id) && _userBlackList[id] > DateTime.UtcNow)
         {
             return true;
         }
