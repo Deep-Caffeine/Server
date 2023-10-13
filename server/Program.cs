@@ -69,7 +69,7 @@ app.UseRouting();
 
 app.UseCors("_developCorsDisable");
 
-app.UseMiddleware<CorsMiddleware>();
+//app.UseMiddleware<CorsMiddleware>();
 app.UseMiddleware<JwtMiddleware>();
 
 app.UseAuthorization();
