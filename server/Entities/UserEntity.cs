@@ -9,7 +9,7 @@ namespace server.Entities
         public string Email { get; set; }
 
         [Required]
-        [RegularExpression(@"^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")]
+        [RegularExpression(@"^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$")]
         public string Password { get; set; }
 
         [Required]
@@ -17,12 +17,18 @@ namespace server.Entities
         public string Username { get; set; }
 
         [Required]
+        [StringLength(20, MinimumLength = 3)]
+        public string Nickname { get; set; }
+
+        [Required]
+        [RegularExpression(@"^\d{11}$")]
         [Phone]
         public string Phone { get; set; }
 
         [Required]
-        [RegularExpression(@"^\d{4}-\d{2}-\d{2}$")]
-        public DateTime Birth { get; set; }
+
+        [RegularExpression(@"^\d{6}$")]
+        public string Birth { get; set; }
 
         public string? ProfileURL { get; set; }
 
@@ -35,8 +41,9 @@ namespace server.Entities
             Email = "";
             Password = "";
             Username = "";
+            Nickname = "";
             Phone = "";
-            Birth = new DateTime();
+            Birth = "";
             ProfileURL = null;
             Level = 0;
             Sns = "";

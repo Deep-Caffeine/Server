@@ -36,8 +36,10 @@ public class UserService : IUserService
             Phone = body.Phone,
             ProfileURL = null,
             Sns = "",
-            Username = body.Username
+            Username = body.Username,
+            Nickname = body.Nickname
         };
+
         this._context.Users.Add(userEntity);
         await this._context.SaveChangesAsync();
 
@@ -61,6 +63,7 @@ public class UserService : IUserService
         {
             email = user.Email,
             username = user.Username,
+            nickname = user.Nickname,
             phone = user.Phone,
             birth = user.Birth,
             profile_url = user.ProfileURL,
@@ -80,6 +83,7 @@ public class UserService : IUserService
         }
 
         user.Username = model.username ?? user.Username;
+        user.Nickname = model.nickname ?? user.Nickname;
         user.Password = model.password ?? user.Password;
         user.Phone = model.phone ?? user.Phone;
         user.Birth = model.birth ?? user.Birth;

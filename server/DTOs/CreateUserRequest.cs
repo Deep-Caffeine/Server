@@ -9,7 +9,7 @@ public class CreateUserRequest
     public string Email { get; set; }
 
     [Required]
-    [RegularExpression(@"^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")]
+    [RegularExpression(@"^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$")]
     public string Password { get; set; }
 
     [Required]
@@ -17,9 +17,14 @@ public class CreateUserRequest
     public string Username { get; set; }
 
     [Required]
+    [StringLength(20, MinimumLength = 3)]
+    public string Nickname { get; set; }
+
+    [Required]
     [Phone]
     public string Phone { get; set; }
 
     [Required]
-    public DateTime Birth { get; set; }
+    [RegularExpression(@"^\d{6}$")]
+    public String Birth { get; set; }
 }
