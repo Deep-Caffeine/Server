@@ -7,11 +7,15 @@ public class PutUserRequest
     [StringLength(20, MinimumLength = 3)]
     public string? username { get; set; }
 
-    [RegularExpression(@"^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")]
+    [StringLength(20, MinimumLength = 3)]
+    public string? nickname { get; set; }
+    
+    [RegularExpression(@"^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$")]
     public string? password { get; set; }
 
     [Phone]
     public string? phone { get; set; }
 
-    public DateTime? birth { get; set; }
+    [RegularExpression(@"^\d{2}-\d{2}-\d{2}$")]
+    public string? birth { get; set; }
 }
