@@ -39,7 +39,7 @@ public class UserService : IUserService
             Username = body.Username,
             Nickname = body.Nickname
         };
-        
+
         this._context.Users.Add(userEntity);
         await this._context.SaveChangesAsync();
         return new AuthResponse
