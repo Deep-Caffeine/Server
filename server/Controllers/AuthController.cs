@@ -21,29 +21,26 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [AllowAnonymous]
-    public ActionResult<AuthResponse> Auth([FromBody] AuthRequest authRequest)
+    public ActionResult<AuthResponse?> Auth([FromBody] AuthRequest body)
     {
-        UserEntity? userEntity = _authService.UserAuthorize(authRequest.email, authRequest.password);
-
-        AuthResponse response = new AuthResponse();
+        UserEntity? userEntity = _authService.UserAuthorize(body);
 
         if (userEntity == null)
         {
             // Unauthorized
             return Unauthorized();
         }
-        else if (authRequest.no_token ?? false)
+        else if (body.no_token ?? false)
         {
             // No token response
-            return response;
+            return Ok();
         }
-        else
-        {
-            response.access_token = _authService.GenerateAccessToken(userEntity.Id);
-            response.refresh_token = _authService.GenerateRefreshToken(userEntity.Id);
 
-            return response;
-        }
+        return new AuthResponse
+        {
+            access_token = _authService.GenerateAccessToken(userEntity.Id),
+            refresh_token = _authService.GenerateRefreshToken(userEntity.Id)
+        };
     }
 
     [Route("refresh")]
@@ -54,8 +51,7 @@ public class AuthController : ControllerBase
         JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
         long id = long.Parse(jwtToken.GetClaimByType("id"));
 
-        AuthResponse response = new AuthResponse();
-        response.access_token = _authService.GenerateAccessToken(id);
+        AuthResponse response = new AuthResponse { access_token = _authService.GenerateAccessToken(id) };
 
         return response;
     }

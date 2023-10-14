@@ -12,9 +12,9 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
     public void OnAuthorization(AuthorizationFilterContext context)
     {
         // [AllowAnonymous] attribute가 있는 경우 스킵
-        bool allowAnonymouse = context.ActionDescriptor.EndpointMetadata.OfType<AllowAnonymousAttribute>().Any();
+        bool allowAnonymous = context.ActionDescriptor.EndpointMetadata.OfType<AllowAnonymousAttribute>().Any();
 
-        if (allowAnonymouse)
+        if (allowAnonymous)
         {
             return;
         }
