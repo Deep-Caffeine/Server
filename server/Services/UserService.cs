@@ -40,7 +40,7 @@ public class UserService : IUserService
         };
         this._context.Users.Add(userEntity);
         await this._context.SaveChangesAsync();
-        
+
         return new AuthResponse
         {
             access_token = _authService.GenerateAccessToken(userEntity.Id),
