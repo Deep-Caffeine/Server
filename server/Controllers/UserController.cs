@@ -20,17 +20,12 @@ namespace server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<KeyValueErrorResponse>> Create([FromBody] CreateUserRequest body)
+        public async Task<ActionResult<object>> Create([FromBody] CreateUserRequest body)
         {
             try
             {
-                bool result = await this._userService.Create(body);
-                if (result == false)
-                {
-                    return BadRequest();
-                }
-
-                return Ok();
+                AuthResponse? result = await this._userService.Create(body);
+                return Ok(result);
             }
             catch (Exception error)
             {
