@@ -88,7 +88,7 @@ namespace server.Controllers
 
         [Route("school")]
         [HttpPost]
-        public async Task<ActionResult<KeyValueErrorResponse>> AddSchoolInfo([FromBody] CreateSchoolRequest body)
+        public async Task<ActionResult> AddSchoolInfo([FromBody] CreateSchoolRequest body)
         {
             JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
             long id = long.Parse(jwtToken.GetClaimByType("id"));
