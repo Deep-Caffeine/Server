@@ -25,6 +25,6 @@ public class CreateUserRequest
     public string Phone { get; set; }
 
     [Required]
-    [RegularExpression(@"^\d{2}-\d{2}-\d{2}$")]
+    [RegularExpression(@"^\d{6}$")]
     public String Birth { get; set; }
 }

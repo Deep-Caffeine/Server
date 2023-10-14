@@ -21,13 +21,14 @@ namespace server.Entities
         public string Nickname { get; set; }
 
         [Required]
-        [RegularExpression(@"^\d{11}$")]             // \d: 0~9, {6}: 길이 6
+        [RegularExpression(@"^\d{11}$")]
         [Phone]
         public string Phone { get; set; }
 
         [Required]
-        [RegularExpression(@"^\d{2}-\d{2}-\d{2}$")]
-        public String Birth { get; set; }
+
+        [RegularExpression(@"^\d{6}$")]
+        public string Birth { get; set; }
 
         public string? ProfileURL { get; set; }
 

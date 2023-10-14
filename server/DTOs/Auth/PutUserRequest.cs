@@ -15,7 +15,7 @@ public class PutUserRequest
 
     [Phone]
     public string? phone { get; set; }
-
-    [RegularExpression(@"^\d{2}-\d{2}-\d{2}$")]
+\
+    [RegularExpression(@"^\d{6}$")]
     public string? birth { get; set; }
 }
