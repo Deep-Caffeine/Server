@@ -11,7 +11,7 @@ namespace server.Entities
         public long Receiver { get; set; }
 
         [Required]
-        public string DateTime { get; set; }
+        public DateTime DateTime { get; set; }
 
         [Required]
         public string Message { get; set; }
@@ -21,7 +21,6 @@ namespace server.Entities
 
         public ChatLogsEntity()
         {
-            DateTime = "";
             Message = "";
         }
     }

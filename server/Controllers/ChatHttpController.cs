@@ -34,4 +34,25 @@ public class ChatHttpController : ControllerBase
 
         return Ok();
     }
+
+    [HttpGet]
+    public async Task<ActionResult> ChatLog(long roomId)
+    {
+        var chatLogResponse = await _chatHttpService.ChatLog(roomId);
+
+        if (chatLogResponse == null) return NotFound();
+
+        JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
+        long id = long.Parse(jwtToken.GetClaimByType("id"));
+
+        foreach (var response in chatLogResponse)
+        {
+            if (response.sender == id)
+            {
+                return Ok(chatLogResponse);
+            }
+        }
+
+        return Unauthorized();
+    }
 }
