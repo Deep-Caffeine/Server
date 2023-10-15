@@ -1,4 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Mvc;
 using server.Attributes;
 using server.DTOs;
@@ -22,7 +22,7 @@ namespace server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<object>> Create([FromBody] CreateUserRequest body)
+        public async Task<ActionResult> Create([FromBody] CreateUserRequest body)
         {
             try
             {
@@ -31,12 +31,7 @@ namespace server.Controllers
             }
             catch (Exception error)
             {
-                return BadRequest(new
-                {
-                    status = 400,
-                    title = "This is a duplicate email.",
-                    errors = new { Email = "중복된 이메일 입니다." }
-                });
+                return BadRequest(new ErrorResponse { message = "중복된 이메일 입니다." });
             }
         }
 
