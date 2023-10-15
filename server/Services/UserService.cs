@@ -1,4 +1,4 @@
-﻿using System.Security.Cryptography;
+using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,11 +13,13 @@ public class UserService : IUserService
 {
     private readonly ApplicationDbContext _context;
     private readonly AuthService _authService;
+    private readonly ILogger<UserService> _logger;
 
-    public UserService(ApplicationDbContext context, AuthService auth)
+    public UserService(ApplicationDbContext context, AuthService auth, ILogger<UserService> logger)
     {
         _context = context;
         _authService = auth;
+        _logger = logger;
     }
 
     private bool UserEntityExists(long id)

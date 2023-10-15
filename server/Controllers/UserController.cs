@@ -13,10 +13,12 @@ namespace server.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(UserService userService)
+        public UserController(UserService userService, ILogger<UserController> logger)
         {
             this._userService = userService;
+            this._logger = logger;
         }
 
         [HttpPost]

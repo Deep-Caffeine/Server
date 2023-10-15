@@ -12,10 +12,13 @@ namespace server.Controllers;
 public class ChatHttpController : ControllerBase
 {
     public readonly ChatHttpService _chatHttpService;
+    private readonly ILogger<ChatHttpController> _logger;
+    
 
-    public ChatHttpController(ChatHttpService chatHttpService)
+    public ChatHttpController(ChatHttpService chatHttpService, ILogger<ChatHttpController> logger)
     {
         _chatHttpService = chatHttpService;
+        _logger = logger;
     }
 
     [HttpPost]
