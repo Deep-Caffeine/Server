@@ -37,7 +37,7 @@ namespace server.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<GetUserResponse>> Read()
+        public async Task<ActionResult> Read()
         {
             JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
             long id = long.Parse(jwtToken.GetClaimByType("id"));
@@ -54,7 +54,7 @@ namespace server.Controllers
 
         [HttpPut]
         [Authorize]
-        public async Task<ActionResult<KeyValueErrorResponse>> Update([FromBody] PutUserRequest model)
+        public async Task<ActionResult> Update([FromBody] PutUserRequest model)
         {
             JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
             long id = long.Parse(jwtToken.GetClaimByType("id"));
