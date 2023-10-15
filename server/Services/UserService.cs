@@ -109,9 +109,14 @@ public class UserService : IUserService
     }
     public async Task<bool> AddSchoolInfo(long id, CreateSchoolRequest body)
     {
+        SchoolInformationEntity? data = await _context.SchoolInformationEntities.FindAsync(id);
+        if (data != null)
+        {
+            
+        }
         SchoolInformationEntity schoolInformationEntity = new SchoolInformationEntity
         {
-            User = id,
+            User = await _context.Users.FindAsync(id),
             School = body.School,
             Department = body.Department,
             State = body.State,

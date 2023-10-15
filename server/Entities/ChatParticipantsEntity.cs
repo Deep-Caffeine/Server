@@ -5,9 +5,9 @@ namespace server.Entities
     public class ChatParticipantsEntity : BaseEntity
     {
         [Required]
-        public long UserId { get; set; }
+        public UserEntity UserId { get; set; }
 
         [Required]
-        public long ChatRoomId { get; set; }
+        public ChatRoomEntity ChatRoomId { get; set; }
     }
 }

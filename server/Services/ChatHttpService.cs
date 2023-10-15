@@ -23,11 +23,11 @@ public class ChatHttpService : IChatHttpService
         {
             return null;
         }
-
+        
         var entity = new ChatParticipantsEntity
         {
-            UserId = id,
-            ChatRoomId = chatJoinRequest.roomid
+            UserId = await _context.Users.FindAsync(id),
+            ChatRoomId = room
         };
 
         this._context.ChatParticipantsEntities.Add(entity);
