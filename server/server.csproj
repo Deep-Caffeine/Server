@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DTOs\Chat\" />
+    <Folder Include="DTOs\chat\Response\" />
     <Folder Include="Utilities\" />
     <Folder Include="Attributes\" />
     <Folder Include="Middlewares\" />
