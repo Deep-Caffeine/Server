@@ -126,12 +126,12 @@ public class UserService : IUserService
             await this._context.SaveChangesAsync();
             return true;
         }
-        
+
         data.School = body.School;
         data.Department = body.Department;
         data.State = body.State;
         data.Grade = body.Grade;
-        
+
         _context.SchoolInformationEntities.Update(data);
         await _context.SaveChangesAsync();
         return true;
