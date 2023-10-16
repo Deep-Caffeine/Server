@@ -1,4 +1,4 @@
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -112,7 +112,7 @@ public class UserService : IUserService
         SchoolInformationEntity? data = await _context.SchoolInformationEntities.FindAsync(id);
         if (data != null)
         {
-            
+
         }
         SchoolInformationEntity schoolInformationEntity = new SchoolInformationEntity
         {

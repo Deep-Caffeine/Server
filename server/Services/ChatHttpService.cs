@@ -23,7 +23,7 @@ public class ChatHttpService : IChatHttpService
         {
             return null;
         }
-        
+
         var entity = new ChatParticipantsEntity
         {
             UserId = await _context.Users.FindAsync(id),
