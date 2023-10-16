@@ -1,28 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using server.Entities;
+using DbContext = Microsoft.EntityFrameworkCore.DbContext;
 
 namespace server
 {
     public class ApplicationDbContext : DbContext
     {
         public DbSet<UserEntity> Users { get; set; }
-
-        public string DbPath { get; }
-
-        public ApplicationDbContext()
+        public DbSet<ChatLogsEntity> ChatLogsEntities { get; set; }
+        public DbSet<ChatParticipantsEntity> ChatParticipantsEntities { get; set; }
+        public DbSet<ChatRoomEntity> ChatRoomEntities { get; set; }
+        public DbSet<SchoolInformationEntity> SchoolInformationEntities { get; set; }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-
-            DbPath = System.IO.Path.Join(path, "./data.db");
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-
-            // 로컬 Db와 연결
-            optionsBuilder.UseSqlite($"Data Source={DbPath}");
+            modelBuilder.Entity<UserEntity>()
+                .HasIndex(p => p.Email)
+                .IsUnique(true);
         }
     }
 }

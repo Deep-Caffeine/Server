@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace server.Controllers;
 
@@ -7,19 +6,26 @@ namespace server.Controllers;
 [Route("[controller]")]
 public class HelloWorldController : ControllerBase
 {
-    private readonly ILogger<HelloWorldController> mLogger;
+    private readonly ILogger<HelloWorldController> _logger;
 
     public HelloWorldController(ILogger<HelloWorldController> logger)
     {
-        mLogger = logger;
+        _logger = logger;
     }
 
     [HttpGet]
-    public string Get()
+    public CreatedResult Get()
     {
-        mLogger.LogInformation($"Hello");
+        _logger.LogInformation($"Hello");
 
-        return "Hello, World!";
+        /*
+         * URI 부분은 Response Header의 Location에 담기고
+         * Value 부분은 Response Body에 입력된다.
+         */
+        return Created("test", new
+        {
+            message = "testResponseMessage"
+        });
     }
 }
 

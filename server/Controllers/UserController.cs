@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using server.Attributes;
 using server.DTOs;
-using server.Entities;
+using server.Middlewares;
 using server.Services;
-
+using server.Utilities;
 
 namespace server.Controllers
 {
@@ -16,17 +12,38 @@ namespace server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly UserService mUserService;
+        private readonly UserService _userService;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(UserService userService)
+        public UserController(UserService userService, ILogger<UserController> logger)
         {
-            this.mUserService = userService;
+            this._userService = userService;
+            this._logger = logger;
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> Create([FromBody] CreateUserRequest body)
+        {
+            try
+            {
+                AuthResponse? result = await this._userService.Create(body);
+                return Ok(result);
+            }
+            catch (Exception error)
+            {
+                return BadRequest(new ErrorResponse { message = "중복된 이메일 입니다." });
+            }
         }
 
         [HttpGet]
-        public async Task<ActionResult<GetUserResponse>> Read([FromHeader(Name = "Id")] long id)
+        [Authorize]
+        public async Task<ActionResult> Read()
         {
-            var userResponse = await mUserService.Read(id);
+            JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
+            long id = long.Parse(jwtToken.GetClaimByType("id"));
+
+            var userResponse = await _userService.Read(id);
 
             if (userResponse == null)
             {
@@ -36,26 +53,52 @@ namespace server.Controllers
             return Ok(userResponse);
         }
 
-        [HttpPost]
-        public ActionResult<KeyValueErrorResponse> Create([FromBody] UserEntity model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            return Ok();
-        }
-
         [HttpPut]
-        public ActionResult<KeyValueErrorResponse> Update()
+        [Authorize]
+        public async Task<ActionResult> Update([FromBody] PutUserRequest model)
         {
+            JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
+            long id = long.Parse(jwtToken.GetClaimByType("id"));
+
+            bool userResponse = await _userService.Update(id, model);
+
+            if (!userResponse)
+            {
+                return Unauthorized();
+            }
+
             return Ok();
         }
 
         [HttpDelete]
-        public ActionResult Delete()
+        [Authorize]
+        public async Task<ActionResult> Delete()
         {
-            return Unauthorized();
+            JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
+            long id = long.Parse(jwtToken.GetClaimByType("id"));
+
+            await _userService.Delete(id);
+
+            JwtMiddleware.BanUser(id, TimeSpan.FromDays(28));
+
+            return Ok();
+        }
+
+        [Route("school")]
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult> AddSchoolInfo([FromBody] CreateSchoolRequest body)
+        {
+            JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
+            long id = long.Parse(jwtToken.GetClaimByType("id"));
+
+            bool result = await this._userService.AddSchoolInfo(id, body);
+            if (result == false)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
     }
 }

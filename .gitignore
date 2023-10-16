@@ -264,3 +264,6 @@ logs
 .env
 .swp
 server/Migrations/
+server/Data/
+Data/
+Migrations/

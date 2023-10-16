@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using server.DTOs;
+﻿using server.DTOs;
 
 namespace server.Interface;
 
 interface IUserService
 {
-    GetUserResponse Create();
+    public Task<AuthResponse?> Create(CreateUserRequest body);
+    public Task<bool> AddSchoolInfo(long id, CreateSchoolRequest body);
 }
