@@ -26,8 +26,8 @@ public class ChatHttpService : IChatHttpService
 
         var entity = new ChatParticipantsEntity
         {
-            UserId = await _context.Users.FindAsync(id),
-            ChatRoomId = room
+            UserId = id,
+            ChatRoomId = room.Id
         };
 
         this._context.ChatParticipantsEntities.Add(entity);

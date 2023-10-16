@@ -7,6 +7,7 @@ namespace server.Entities
     public class SchoolInformationEntity : BaseEntity
     {
         [Required]
+        public long UserId { get; set; }
         public UserEntity User { get; set; }
 
         [Required]
