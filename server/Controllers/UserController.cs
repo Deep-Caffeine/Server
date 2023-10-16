@@ -22,6 +22,7 @@ namespace server.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult> Create([FromBody] CreateUserRequest body)
         {
             try
