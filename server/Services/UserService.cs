@@ -107,24 +107,33 @@ public class UserService : IUserService
         _context.Users.Remove(user);
         await _context.SaveChangesAsync();
     }
+
     public async Task<bool> AddSchoolInfo(long id, CreateSchoolRequest body)
     {
-        SchoolInformationEntity? data = await _context.SchoolInformationEntities.FindAsync(id);
-        if (data != null)
+        SchoolInformationEntity? data = _context.SchoolInformationEntities.SingleOrDefault(e => e.UserId == id);
+        if (data == null)
         {
+            SchoolInformationEntity schoolInformationEntity = new SchoolInformationEntity
+            {
+                UserId = id,
+                School = body.School,
+                Department = body.Department,
+                State = body.State,
+                Grade = body.Grade
+            };
 
+            this._context.SchoolInformationEntities.Add(schoolInformationEntity);
+            await this._context.SaveChangesAsync();
+            return true;
         }
-        SchoolInformationEntity schoolInformationEntity = new SchoolInformationEntity
-        {
-            User = await _context.Users.FindAsync(id),
-            School = body.School,
-            Department = body.Department,
-            State = body.State,
-            Grade = body.Grade
-        };
-
-        this._context.SchoolInformationEntities.Add(schoolInformationEntity);
-        await this._context.SaveChangesAsync();
+        
+        data.School = body.School;
+        data.Department = body.Department;
+        data.State = body.State;
+        data.Grade = body.Grade;
+        
+        _context.SchoolInformationEntities.Update(data);
+        await _context.SaveChangesAsync();
         return true;
     }
 }
