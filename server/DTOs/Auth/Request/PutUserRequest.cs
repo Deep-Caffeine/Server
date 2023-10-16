@@ -4,6 +4,7 @@ namespace server.DTOs;
 
 public class PutUserRequest
 {
+    //Validation 없음
     [StringLength(20, MinimumLength = 3)]
     public string? username { get; set; }
 
@@ -15,7 +16,7 @@ public class PutUserRequest
 
     [Phone]
     public string? phone { get; set; }
-\
+
     [RegularExpression(@"^\d{6}$")]
     public string? birth { get; set; }
 }

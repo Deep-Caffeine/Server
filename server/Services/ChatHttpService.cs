@@ -7,10 +7,12 @@ namespace server.Services;
 public class ChatHttpService : IChatHttpService
 {
     private readonly ApplicationDbContext _context;
+    private readonly ILogger<ChatHttpService> _logger;
 
-    public ChatHttpService(ApplicationDbContext context)
+    public ChatHttpService(ApplicationDbContext context, ILogger<ChatHttpService> logger)
     {
         _context = context;
+        _logger = logger;
     }
 
     public async Task<bool?> Join(long id, ChatJoinRequest chatJoinRequest)
@@ -25,7 +27,7 @@ public class ChatHttpService : IChatHttpService
         var entity = new ChatParticipantsEntity
         {
             UserId = id,
-            ChatRoomId = chatJoinRequest.roomid
+            ChatRoomId = room.Id
         };
 
         this._context.ChatParticipantsEntities.Add(entity);

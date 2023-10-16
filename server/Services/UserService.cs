@@ -13,11 +13,13 @@ public class UserService : IUserService
 {
     private readonly ApplicationDbContext _context;
     private readonly AuthService _authService;
+    private readonly ILogger<UserService> _logger;
 
-    public UserService(ApplicationDbContext context, AuthService auth)
+    public UserService(ApplicationDbContext context, AuthService auth, ILogger<UserService> logger)
     {
         _context = context;
         _authService = auth;
+        _logger = logger;
     }
 
     private bool UserEntityExists(long id)
@@ -105,19 +107,32 @@ public class UserService : IUserService
         _context.Users.Remove(user);
         await _context.SaveChangesAsync();
     }
+
     public async Task<bool> AddSchoolInfo(long id, CreateSchoolRequest body)
     {
-        SchoolInformationEntity schoolInformationEntity = new SchoolInformationEntity
+        SchoolInformationEntity? data = _context.SchoolInformationEntities.SingleOrDefault(e => e.UserId == id);
+        if (data == null)
         {
-            User = id,
-            School = body.School,
-            Department = body.Department,
-            State = body.State,
-            Grade = body.Grade
-        };
+            SchoolInformationEntity schoolInformationEntity = new SchoolInformationEntity
+            {
+                UserId = id,
+                School = body.School,
+                Department = body.Department,
+                State = body.State,
+                Grade = body.Grade
+            };
 
-        this._context.SchoolInformationEntities.Add(schoolInformationEntity);
-        await this._context.SaveChangesAsync();
+            this._context.SchoolInformationEntities.Add(schoolInformationEntity);
+            await this._context.SaveChangesAsync();
+            return true;
+        }
+
+        data.School = body.School;
+        data.Department = body.Department;
+        data.State = body.State;
+        if (body.Grade != null) data.Grade = body.Grade;
+        _context.SchoolInformationEntities.Update(data);
+        await _context.SaveChangesAsync();
         return true;
     }
 }

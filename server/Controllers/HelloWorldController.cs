@@ -14,11 +14,18 @@ public class HelloWorldController : ControllerBase
     }
 
     [HttpGet]
-    public string Get()
+    public CreatedResult Get()
     {
         _logger.LogInformation($"Hello");
 
-        return "Hello, World!";
+        /*
+         * URI 부분은 Response Header의 Location에 담기고
+         * Value 부분은 Response Body에 입력된다.
+         */
+        return Created("test", new
+        {
+            message = "testResponseMessage"
+        });
     }
 }
 

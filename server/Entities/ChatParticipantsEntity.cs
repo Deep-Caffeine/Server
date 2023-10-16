@@ -6,8 +6,10 @@ namespace server.Entities
     {
         [Required]
         public long UserId { get; set; }
+        public UserEntity User { get; set; }
 
         [Required]
         public long ChatRoomId { get; set; }
+        public ChatRoomEntity ChatRoom { get; set; }
     }
 }

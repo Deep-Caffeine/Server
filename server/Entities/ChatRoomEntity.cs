@@ -6,10 +6,5 @@ namespace server.Entities
     {
         [Required]
         public string Name { get; set; }
-
-        public ChatRoomEntity()
-        {
-            Name = "";
-        }
     }
 }

@@ -36,8 +36,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DTOs\Chat\" />
+    <Folder Include="DTOs\chat\Response\" />
     <Folder Include="Utilities\" />
     <Folder Include="Attributes\" />
     <Folder Include="Middlewares\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="DTOs\Auth\Response\EmailErrorResponse.cs" />
   </ItemGroup>
 </Project>

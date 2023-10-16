@@ -13,14 +13,17 @@ namespace server.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(UserService userService)
+        public UserController(UserService userService, ILogger<UserController> logger)
         {
             this._userService = userService;
+            this._logger = logger;
         }
 
         [HttpPost]
-        public async Task<ActionResult<object>> Create([FromBody] CreateUserRequest body)
+        [AllowAnonymous]
+        public async Task<ActionResult> Create([FromBody] CreateUserRequest body)
         {
             try
             {
@@ -29,18 +32,13 @@ namespace server.Controllers
             }
             catch (Exception error)
             {
-                return BadRequest(new
-                {
-                    status = 400,
-                    title = "This is a duplicate email.",
-                    errors = new { Email = "중복된 이메일 입니다." }
-                });
+                return BadRequest(new ErrorResponse { message = "중복된 이메일 입니다." });
             }
         }
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<GetUserResponse>> Read()
+        public async Task<ActionResult> Read()
         {
             JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
             long id = long.Parse(jwtToken.GetClaimByType("id"));
@@ -57,7 +55,7 @@ namespace server.Controllers
 
         [HttpPut]
         [Authorize]
-        public async Task<ActionResult<KeyValueErrorResponse>> Update([FromBody] PutUserRequest model)
+        public async Task<ActionResult> Update([FromBody] PutUserRequest model)
         {
             JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
             long id = long.Parse(jwtToken.GetClaimByType("id"));
@@ -88,6 +86,7 @@ namespace server.Controllers
 
         [Route("school")]
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> AddSchoolInfo([FromBody] CreateSchoolRequest body)
         {
             JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
