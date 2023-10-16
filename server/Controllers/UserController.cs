@@ -85,6 +85,7 @@ namespace server.Controllers
 
         [Route("school")]
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> AddSchoolInfo([FromBody] CreateSchoolRequest body)
         {
             JwtSecurityToken jwtToken = HttpContext.GetJwtToken();
