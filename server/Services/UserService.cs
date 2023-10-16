@@ -1,4 +1,4 @@
-﻿using System.Security.Cryptography;
+using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -130,8 +130,7 @@ public class UserService : IUserService
         data.School = body.School;
         data.Department = body.Department;
         data.State = body.State;
-        data.Grade = body.Grade;
-
+        if (body.Grade != null) data.Grade = body.Grade;
         _context.SchoolInformationEntities.Update(data);
         await _context.SaveChangesAsync();
         return true;
