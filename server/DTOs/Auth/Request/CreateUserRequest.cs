@@ -27,4 +27,7 @@ public class CreateUserRequest
     [Required]
     [RegularExpression(@"^\d{6}$")]
     public String Birth { get; set; }
+
+    [Required]
+    public string Gender { get; set; }
 }
