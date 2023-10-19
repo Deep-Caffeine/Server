@@ -28,11 +28,11 @@ namespace server.Entities
         [Required]
         [RegularExpression(@"^\d{6}$")]
         public string Birth { get; set; }
-        
+
         [Required]
         //남자 true, 여자 false
         public bool Gender { get; set; }
-        
+
         public string? ProfileURL { get; set; }
 
         public long Level { get; set; }
