@@ -31,6 +31,7 @@ public class UserService : IUserService
     {
         UserEntity userEntity = new UserEntity
         {
+            Gender = true,
             Birth = body.Birth,
             Email = body.Email,
             Level = 0,
@@ -41,7 +42,10 @@ public class UserService : IUserService
             Username = body.Username,
             Nickname = body.Nickname
         };
-
+        if (body.Gender == "여자")
+        {
+            userEntity.Gender = false;
+        }
         this._context.Users.Add(userEntity);
         await this._context.SaveChangesAsync();
 
@@ -70,8 +74,13 @@ public class UserService : IUserService
             birth = user.Birth,
             profile_url = user.ProfileURL,
             level = user.Level,
-            sns = user.Sns.Split(',')
+            sns = user.Sns.Split(','),
+            gender = "남자"
         };
+        if (user.Gender == false)
+        {
+            response.gender = "여자";
+        }
         return response;
     }
 

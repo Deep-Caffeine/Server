@@ -26,27 +26,17 @@ namespace server.Entities
         public string Phone { get; set; }
 
         [Required]
-
         [RegularExpression(@"^\d{6}$")]
         public string Birth { get; set; }
-
+        
+        [Required]
+        //남자 true, 여자 false
+        public bool Gender { get; set; }
+        
         public string? ProfileURL { get; set; }
 
         public long Level { get; set; }
 
         public string Sns { get; set; }
-
-        public UserEntity()
-        {
-            Email = "";
-            Password = "";
-            Username = "";
-            Nickname = "";
-            Phone = "";
-            Birth = "";
-            ProfileURL = null;
-            Level = 0;
-            Sns = "";
-        }
     }
 }

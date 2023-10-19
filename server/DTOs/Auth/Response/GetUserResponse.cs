@@ -1,4 +1,4 @@
-﻿namespace server.DTOs;
+namespace server.DTOs;
 
 public class GetUserResponse
 {
@@ -10,4 +10,5 @@ public class GetUserResponse
     public string? profile_url { get; set; }
     public long level { get; set; }
     public string[] sns { get; set; }
+    public string gender { get; set; }
 }
