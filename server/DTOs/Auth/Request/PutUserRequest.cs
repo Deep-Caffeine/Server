@@ -6,9 +6,6 @@ public class PutUserRequest
 {
     //Validation 없음
     [StringLength(20, MinimumLength = 3)]
-    public string? username { get; set; }
-
-    [StringLength(20, MinimumLength = 3)]
     public string? nickname { get; set; }
 
     [RegularExpression(@"^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$")]
