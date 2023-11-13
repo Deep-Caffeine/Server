@@ -90,7 +90,7 @@ public class UserService : IUserService
         {
             return false;
         }
-        
+
         user.Nickname = model.nickname ?? user.Nickname;
         user.Password = model.password ?? user.Password;
         user.Phone = model.phone ?? user.Phone;
