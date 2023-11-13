@@ -3,7 +3,6 @@
 public class GetUserResponse
 {
     public string email { get; set; }
-    public string username { get; set; }
     public string nickname { get; set; }
     public string phone { get; set; }
     public string birth { get; set; }
