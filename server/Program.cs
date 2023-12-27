@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using server;
+using server.Controllers;
 using server.Middlewares;
 using server.Services;
 
@@ -51,6 +52,7 @@ else
         options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
     });
 }
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -75,5 +77,6 @@ app.UseMiddleware<JwtMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<ChatHub>("/chathub");
 
 app.Run();

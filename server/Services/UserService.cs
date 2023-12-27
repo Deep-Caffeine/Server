@@ -39,7 +39,6 @@ public class UserService : IUserService
             Phone = body.Phone,
             ProfileURL = null,
             Sns = "",
-            Username = body.Username,
             Nickname = body.Nickname
         };
         if (body.Gender == "여자")
@@ -68,7 +67,6 @@ public class UserService : IUserService
         var response = new GetUserResponse
         {
             email = user.Email,
-            username = user.Username,
             nickname = user.Nickname,
             phone = user.Phone,
             birth = user.Birth,
@@ -93,7 +91,6 @@ public class UserService : IUserService
             return false;
         }
 
-        user.Username = model.username ?? user.Username;
         user.Nickname = model.nickname ?? user.Nickname;
         user.Password = model.password ?? user.Password;
         user.Phone = model.phone ?? user.Phone;
